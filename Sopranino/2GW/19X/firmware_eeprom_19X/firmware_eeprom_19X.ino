@@ -26,6 +26,17 @@
 
 // FIRMWARE VERSION: 19031
 
+// IMPORTANT: You need to upload a blank file (data/config.json) into ESP32 filesystem. 
+// Follow the instructions at https://github.com/me-no-dev/arduino-esp32fs-plugin
+
+// DEPENDENCIES:
+// esp32 board library (add url to preferences; install via board manager)
+// esp8266 board library (add url to preferences; install via board manager)
+// Wifimanager https://github.com/edumeneses/WiFi32Manager
+// Adafruit_LSM9DS1 (library manager)
+// ArduinoJSON (library manager - need version 5.13.5; 6.x will not work)
+// OSC - https://github.com/CNMAT/OSC (library manager)
+
 //  OBS:
 //  1-) Use esp32 1.0.1 or newer (https://github.com/espressif/arduino-esp32/releases)
 //  2-) Also install ESP8266 board library even if you'll use the ESP32 (https://github.com/esp8266/Arduino)
@@ -78,7 +89,7 @@ int calibrate = 0;
 char calibrateCHAR[5] = "0"; // same calibrate # to be saved in json
 
 // Debug & calibration definitions
-#define DEBUG false
+#define DEBUG true
 #define CALIB false
 
 //////////////////////////
