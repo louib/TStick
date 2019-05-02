@@ -121,6 +121,8 @@ def bit_ext_conversion(byte1, byte2):
 def get_tstick_id(*msg):
     named_return = collections.namedtuple(
         'tstick_information', 'tstick_id firmware information')
+    if len(msg) < 1:
+            return False
     if msg[0] == 0:
         if len(msg) < 5:
             return False
@@ -145,6 +147,8 @@ def sort_173(*msg):
     elif msg[0] == 2:
         named_return = collections.namedtuple(
             'tstick_sensor', 'rawaccel rawgyro rawpressure rawpiezo')
+        if len(msg) < 17:
+            return False
         accel_x = bit_ext_conversion(msg[1], msg[2])
         accel_y = bit_ext_conversion(msg[3], msg[4])
         accel_z = bit_ext_conversion(msg[5], msg[6])
@@ -160,6 +164,8 @@ def sort_173(*msg):
             piezo)
     elif msg[0] == 3:
         named_return = collections.namedtuple('tstick_sensor', 'rawmag')
+        if len(msg) < 7:
+            return False
         mag_x = bit_ext_conversion(msg[1], msg[2])
         mag_y = bit_ext_conversion(msg[3], msg[4])
         mag_z = bit_ext_conversion(msg[5], msg[6])
@@ -187,6 +193,8 @@ def sort_2G(*msg):
     elif msg[0] == 4:
         named_return = collections.namedtuple(
             'tstick_sensor', 'rawaccel rawpressure rawpiezo')
+        if len(msg) < 11:
+            return False
         accel_x = bit_conversion(msg[1], msg[2])
         accel_y = bit_conversion(msg[3], msg[4])
         accel_z = bit_conversion(msg[5], msg[6])
@@ -215,6 +223,8 @@ def sort_2GX(*msg):
     elif msg[0] == 4:
         named_return = collections.namedtuple(
             'tstick_sensor', 'rawaccel rawpressure rawpiezo rawairpressure rawrange rawldr1 rawldr2')
+        if len(msg) < 19:
+            return False
         accel_x = bit_conversion(msg[1], msg[2])
         accel_y = bit_conversion(msg[3], msg[4])
         accel_z = bit_conversion(msg[5], msg[6])

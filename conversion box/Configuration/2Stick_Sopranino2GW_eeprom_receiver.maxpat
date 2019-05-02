@@ -895,7 +895,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 597.0, 140.0, 18.0, 82.0 ],
 					"size" : 5,
-					"values" : [ 0, 0, 0, 0, 0 ]
+					"values" : [ 1, 1, 1, 0, 0 ]
 				}
 
 			}
@@ -1589,7 +1589,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 552.0, 140.0, 18.0, 130.0 ],
 					"size" : 8,
-					"value" : 2
+					"value" : 0
 				}
 
 			}
@@ -1605,7 +1605,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 537.0, 140.0, 18.0, 130.0 ],
 					"size" : 8,
-					"value" : 0
+					"value" : 8
 				}
 
 			}
@@ -1621,7 +1621,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 522.0, 140.0, 18.0, 130.0 ],
 					"size" : 8,
-					"value" : 5
+					"value" : 3
 				}
 
 			}
@@ -1637,7 +1637,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 507.0, 140.0, 18.0, 130.0 ],
 					"size" : 8,
-					"value" : 4
+					"value" : 8
 				}
 
 			}
@@ -1653,7 +1653,7 @@
 					"parameter_enable" : 0,
 					"patching_rect" : [ 492.0, 140.0, 18.0, 130.0 ],
 					"size" : 8,
-					"value" : 3
+					"value" : 1
 				}
 
 			}
@@ -3752,7 +3752,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 36.0, 300.0, 160.0, 20.0 ],
-					"text" : "udpsend 192.168.10.2 8888"
+					"text" : "udpsend 192.168.10.3 8888"
 				}
 
 			}
@@ -4783,21 +4783,21 @@
 		"dependency_cache" : [ 			{
 				"name" : "dot.osc.address.prepend.maxpat",
 				"bootpath" : "/Users/edumeneses/Documents/Max/Packages/digital-orchestra-toolbox-master/patchers",
-				"patcherrelativepath" : "../../../../../../../../Max/Packages/digital-orchestra-toolbox-master/patchers",
+				"patcherrelativepath" : "../../../../../Max/Packages/digital-orchestra-toolbox-master/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "dot.osc.address.expand.maxpat",
 				"bootpath" : "/Users/edumeneses/Documents/Max/Packages/digital-orchestra-toolbox-master/patchers",
-				"patcherrelativepath" : "../../../../../../../../Max/Packages/digital-orchestra-toolbox-master/patchers",
+				"patcherrelativepath" : "../../../../../Max/Packages/digital-orchestra-toolbox-master/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "dot.bytetobits.maxpat",
 				"bootpath" : "/Users/edumeneses/Desktop/DigitalOrchestra/toolbox/data/dot.bytetobits",
-				"patcherrelativepath" : "../../../../../../../../../Desktop/DigitalOrchestra/toolbox/data/dot.bytetobits",
+				"patcherrelativepath" : "../../../../../../Desktop/DigitalOrchestra/toolbox/data/dot.bytetobits",
 				"type" : "JSON",
 				"implicit" : 1
 			}

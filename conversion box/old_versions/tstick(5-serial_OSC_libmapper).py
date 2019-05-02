@@ -125,8 +125,8 @@ class tstick:
             else:
                 msg.append(byte)
                 flag = False
-            if self.libmapper_configured:
-                self.libmapper_dev.poll(10)  # libmapper polling
+            # if self.libmapper_configured:
+               # self.libmapper_dev.poll(0)  # libmapper polling
 
     def bit_conversion(self, byte1, byte2):
         return (byte1 * 256) + byte2
@@ -277,78 +277,3 @@ if __name__ == '__main__':
     tstick.receive_and_send_serial()
 
     sys.exit()
-
-
-""" def libmapper_setup(id_number):
-    global LIBMAPPER_DEV
-    LIBMAPPER_DEV = mapper.device("T-Stick{0:03d}".format(id_number))
-    global TSTICK_ID_LIB
-    TSTICK_ID_LIB = LIBMAPPER_DEV.add_output_signal(
-        'tstick_id', 1, 'i', None, 0, 999)
-    global firmware
-    firmware = LIBMAPPER_DEV.add_output_signal(
-        'firmware', 1, 'i', None, 0, 9999)
-    global information
-    information = LIBMAPPER_DEV.add_output_signal(
-        'information', 2, 'i', None, 0, 9999)
-    global rawcapsense
-    rawcapsense = LIBMAPPER_DEV.add_output_signal(
-        "Capsense", 1, 'i', None, 0, 1)
-    global rawjab
-    rawjab = LIBMAPPER_DEV.add_output_signal(
-        "Jab", 1, 'i', None, 0, 1)
-    global rawtap
-    rawtap = LIBMAPPER_DEV.add_output_signal(
-        "Tap", 1, 'i', None, 1, 1)
-    global rawaccel
-    rawaccel = LIBMAPPER_DEV.add_output_signal(
-        "Accel", 3, 'i', None, -32768, 32767)
-    global rawpressure
-    rawpressure = LIBMAPPER_DEV.add_output_signal(
-        "Pressure", 1, 'i', None, 0, 1024)
-    global rawpiezo
-    rawpiezo = LIBMAPPER_DEV.add_output_signal(
-        "Piezo", 1, 'i', None, 0, 1024)
-    if id_number == 173:
-        global rawgyro
-        rawgyro = LIBMAPPER_DEV.add_output_signal(
-            "Gyro", 3, 'i', None, -32768, 32767)
-        global rawmag
-        rawmag = LIBMAPPER_DEV.add_output_signal(
-            "Mag", 3, 'i', None, -32768, 32767)
-    if id_number == 15:
-        global rawairpressure
-        rawairpressure = LIBMAPPER_DEV.add_output_signal(
-            "AirPressure", 1, 'i', None, 0, 1024)
-        global rawrange
-        rawrange = LIBMAPPER_DEV.add_output_signal(
-            "Range", 1, 'i', None, 0, 1024)
-        global rawldr1
-        rawldr1 = LIBMAPPER_DEV.add_output_signal(
-            "LDR1", 1, 'i', None, 0, 1024)
-        global rawldr2
-        rawldr2 = LIBMAPPER_DEV.add_output_signal(
-            "LDR2", 1, 'i', None, 0, 1024)
-    global LIBMAPPER_CONFIGURED
-    LIBMAPPER_CONFIGURED = True
-    # Dictionary to update Libmapper signals
-    global LIBMAPPER_SIGNALS
-    LIBMAPPER_SIGNALS = {
-        "tstick_id": TSTICK_ID_LIB,
-        "firmware": firmware,
-        "information": information,
-        "rawcapsense": rawcapsense,
-        "rawjab": rawjab,
-        "rawtap": rawtap,
-        "rawaccel": rawaccel,
-        "rawpressure": rawpressure,
-        "rawpiezo": rawpiezo
-    }
-    if id_number == 173:
-        LIBMAPPER_SIGNALS["rawgyro"] = rawgyro
-        LIBMAPPER_SIGNALS["rawmag"] = rawmag
-    if id_number == 15:
-        LIBMAPPER_SIGNALS["rawairpressure"] = rawairpressure
-        LIBMAPPER_SIGNALS["rawrange"] = rawrange
-        LIBMAPPER_SIGNALS["rawldr1"] = rawldr1
-        LIBMAPPER_SIGNALS["rawldr2"] = rawldr2 """
