@@ -129,7 +129,7 @@ void Wifimanager_portal(char *portal_name, char *portal_password, bool shouldSav
   char calibrateCheck[24] = "type=\"checkbox\"";
 
   WiFiManagerParameter custom_device("device", "T-Stick name (also AP SSID)", device, 25);
-  WiFiManagerParameter custom_hint("<small>Original number: 19X (author)<br>*Hint: if you want to reuse the currently active WiFi credentials, leave SSID and Password fields empty</small>");
+  WiFiManagerParameter custom_hint("<small>Original number: 193 (Evan)<br>*Hint: if you want to reuse the currently active WiFi credentials, leave SSID and Password fields empty</small>");
   //WiFiManagerParameter custom_hint(hinttext);
   WiFiManagerParameter custom_APpasswd("APpasswd", "Access Point SSID password", APpasswdTemp, 15);
   WiFiManagerParameter custom_APpasswdValidate("APpasswdValidate", "Type password again", APpasswdValidate, 15);

@@ -88,9 +88,9 @@
 //////////////////////////////////
 
 
-unsigned int infoTstick[2] = {19X, 19051};    // serial number and firmware revision
-char author[20] = "author"; // DON'T FORGET TO CHANGE ALSO IN WiFi.ino, LINE 132
-char nickname[10] = "SN_color"; // sopranino (SN), soprano (SO), tenor (TE), etc.
+unsigned int infoTstick[2] = {191, 19051};    // serial number and firmware revision
+char author[20] = "Alex Nieva"; // DON'T FORGET TO CHANGE ALSO IN WiFi.ino, LINE 132
+char nickname[10] = "SN_black"; // sopranino (SN), soprano (SO), tenor (TE), etc.
 char APpasswd[15] = "mappings"; // standard AP password
 
 char device[25] = "T-Stick_";
