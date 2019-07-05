@@ -9,7 +9,6 @@
 //            Adapted to work with Arduino IDE 1.8.8 and T-Stick Sopranino 2GW    //
 //********************************************************************************//
 
-
 //**************************************************//
 // WiFi32Manager - For use with ESP8266 or ESP32    //
 //                                                  //
@@ -23,6 +22,11 @@
 //                                                  //
 // Edu Meneses - IDMIL - Mar 2019                   //
 //**************************************************//
+
+
+// READ ALL DEPENDENCIES AND OBSERVATIONS BEFORE UPLOAD !!!!!!!!
+// ---- --- ------------ --- ------------ ------ ------ 
+// ---- --- ------------ --- ------------ ------ ------ 
 
 // FIRMWARE VERSION: 19051
 
@@ -39,6 +43,7 @@
 
 //  OBS:
 //  1-) Use esp32 1.0.1 or newer (https://github.com/espressif/arduino-esp32/releases)
+//  2-) For esp32 1.0.2 ESP32 has problems saving SSID. Follow instructions: https://github.com/edumeneses/WiFi32Manager
 //  2-) Also install ESP8266 board library even if you'll use the ESP32 (https://github.com/esp8266/Arduino)
 //  3-) Some used library doesn't allow the creation of functions with "setup" in the name
 //  4-) Board currently in use: LOLIN D32 PRO
@@ -221,6 +226,8 @@ char calibrationDataCHAR1[6] = "1024"; // same cal # to be saved in json
 unsigned int pressure = 0;
 uint32_t dataTransferRate = 20; // sending data at 50Hz
 uint32_t deltaTransferRate = 0;
+const int buttonPin = 15;
+
 
 
 ////////////////////////
@@ -234,6 +241,7 @@ unsigned long lastRead = 0;
 byte interval = 10;
 byte touchInterval = 15;
 unsigned long lastReadSensors = 0;
+int buttonState = 0;         // variable for reading the pushbutton status
 
 
 void setup() {
@@ -269,6 +277,7 @@ void setup() {
   initCapsense();
 
   pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
 
   delay(100);
 
@@ -293,7 +302,9 @@ void loop() {
 
   
   // Calling WiFiManager configuration portal
-  if ( outAccel[0] > 1 && interTouch[0] == 9 && interTouch[1] == 144 ) {
+  buttonState = digitalRead(buttonPin);
+  //if ( outAccel[0] > 1 && interTouch[0] == 9 && interTouch[1] == 144 ) {
+  if ( buttonState == LOW ) {
     digitalWrite(ledPin, HIGH);
     Wifimanager_portal(device, APpasswd, true, DEBUG);
   }
@@ -393,12 +404,13 @@ void loop() {
       now = millis();
 
       // Calling configuration portal if the T-Stick is disconnected
-      if (millis() - lastRead > interval) {
-        lastRead = millis();
-        pressure = analogRead(pressurePin);
-        //if (DEBUG) {Serial.print("Pressure sensor: "); Serial.println(pressure);}
-      }
-      if ( pressure > 4090 ) {
+//      if (millis() - lastRead > interval) {
+//        lastRead = millis();
+//        pressure = analogRead(pressurePin);
+//        //if (DEBUG) {Serial.print("Pressure sensor: "); Serial.println(pressure);}
+//      }
+      //if ( pressure > 4090 ) {
+      if ( buttonState == LOW ) {
         digitalWrite(ledPin, HIGH);
         Wifimanager_portal(device, APpasswd, true, DEBUG);
       }

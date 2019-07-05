@@ -94,12 +94,12 @@ if (sendOSC){
         oscEndpoint.endPacket();
         msg4.empty();
     
-        unsigned int pressure = analogRead(pressurePin);
-//        if (calibrate == 1) {
-//          calibrationData[0] = constrain(min(calibrationData[0], pressure), 0, 4095);
-//          calibrationData[1] = constrain(max(calibrationData[1], pressure), 0, 4095);
-//        }
-//        pressure = constrain(map(pressure, calibrationData[0], calibrationData[1], 0, 4095), 0, 4095);
+        int pressure = analogRead(pressurePin);
+        if (calibrate == 1) {
+          pressure = map(pressure, calibrationData[0], calibrationData[1], 0, 1024);
+          if (pressure < 0) {pressure = 0;} 
+         // pressure = constrain(pressure, 0, 4095);
+        }
         OSCMessage msg5("/rawpressure");
         msg5.add(pressure);
         oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);

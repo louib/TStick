@@ -49,7 +49,7 @@ void Wifimanager_init(bool WiFiSerialDebug) {
           strcpy(APpasswd, json["APpasswd"]);
           strcpy(APpasswdTemp, json["APpasswd"]);
           strcpy(APpasswdValidate, json["APpasswdValidate"]);
-          //strcpy(directSendOSCCHAR, json["directSendOSC"]);
+          strcpy(directSendOSCCHAR, json["directSendOSC"]);
           strcpy(infoTstickCHAR0, json["infoTstick0"]);
           strcpy(infoTstickCHAR1, json["infoTstick1"]);
           strcpy(calibrateCHAR, json["calibratetrig"]);
@@ -129,21 +129,21 @@ void Wifimanager_portal(char *portal_name, char *portal_password, bool shouldSav
   char calibrateCheck[24] = "type=\"checkbox\"";
 
   WiFiManagerParameter custom_device("device", "T-Stick name (also AP SSID)", device, 25);
-  WiFiManagerParameter custom_hint("<small>Original number: 19X (author)<br>*Hint: if you want to reuse the currently active WiFi credentials, leave SSID and Password fields empty</small>");
+  WiFiManagerParameter custom_hint("<small>Original number: 190 (IDMIL)<br>*Hint: if you want to reuse the currently active WiFi credentials, leave SSID and Password fields empty</small>");
   //WiFiManagerParameter custom_hint(hinttext);
   WiFiManagerParameter custom_APpasswd("APpasswd", "Access Point SSID password", APpasswdTemp, 15);
   WiFiManagerParameter custom_APpasswdValidate("APpasswdValidate", "Type password again", APpasswdValidate, 15);
   WiFiManagerParameter custom_warning("<small>Be careful: if you forget your new password you'll not be able to connect!</small>");
   WiFiManagerParameter custom_oscIP("server", "IP to send OSC messages", oscIP, 17);
-  WiFiManagerParameter custom_oscPORT("port", "OSC port", oscPORT, 7);
+  WiFiManagerParameter custom_oscPORT("port", "port to send OSC messages", oscPORT, 7);
   if (directSendOSC == 1) { strcat(directSendOSCcheck, " checked"); }
     WiFiManagerParameter custom_directSendOSC("directSendOSC", "DirectSend OSC mode (WiFiManager exit required)", "T", 2, directSendOSCcheck, WFM_LABEL_AFTER);
   WiFiManagerParameter custom_infoTstick0("info0", "T-Stick serial number", infoTstickCHAR0, 6);
   WiFiManagerParameter custom_infoTstick1("info1", "T-Stick firmware revision", infoTstickCHAR1, 6);
   if (calibrate == 1) { strcat(calibrateCheck, " checked"); }
     WiFiManagerParameter custom_calibratetrig("calt", "Pressure sensor calibration ON/OFF (WiFiManager exit required)", "T", 2, calibrateCheck, WFM_LABEL_AFTER);
-  WiFiManagerParameter custom_calibrationData0("cal0", "Pressure sensor min calibration value", calibrationDataCHAR0, 6);
-  WiFiManagerParameter custom_calibrationData1("cal1", "Pressure sensor max calibration value", calibrationDataCHAR1, 6);
+  WiFiManagerParameter custom_calibrationData0("cal0", "Pressure sensor min calibration value (default = 0)", calibrationDataCHAR0, 6);
+  WiFiManagerParameter custom_calibrationData1("cal1", "Pressure sensor max calibration value (default = 4095)", calibrationDataCHAR1, 6);
   WiFiManagerParameter custom_touchMaskData0("touchMask0", "Touch Mask capacitive sensing value (1/2)", touchMaskCHAR0, 7);
   WiFiManagerParameter custom_touchMaskData1("touchMask1", "Touch Mask capacitive sensing value (2/2)", touchMaskCHAR1, 7);
 
@@ -155,7 +155,7 @@ void Wifimanager_portal(char *portal_name, char *portal_password, bool shouldSav
   wifiManager.addParameter(&custom_warning);
   wifiManager.addParameter(&custom_oscIP);
   wifiManager.addParameter(&custom_oscPORT);
-  //wifiManager.addParameter(&custom_directSendOSC); // DEACTIVATED FOR NOW, waiting for button implementation
+  wifiManager.addParameter(&custom_directSendOSC);
   wifiManager.addParameter(&custom_infoTstick0);
   wifiManager.addParameter(&custom_infoTstick1);
   wifiManager.addParameter(&custom_calibratetrig);
@@ -184,8 +184,8 @@ void Wifimanager_portal(char *portal_name, char *portal_password, bool shouldSav
   strcpy(device, custom_device.getValue());
   strcpy(APpasswdTemp, custom_APpasswd.getValue());
   strcpy(APpasswdValidate, custom_APpasswdValidate.getValue());
-  //if (strncmp(custom_directSendOSC.getValue(), "T", 1) == 0) {strcpy(directSendOSCCHAR, one);}
-  //else {strcpy(directSendOSCCHAR, zero);}
+  if (strncmp(custom_directSendOSC.getValue(), "T", 1) == 0) {strcpy(directSendOSCCHAR, one);}
+  else {strcpy(directSendOSCCHAR, zero);}
   strcpy(infoTstickCHAR0, custom_infoTstick0.getValue());
   strcpy(infoTstickCHAR1, custom_infoTstick1.getValue());
   if (strncmp(custom_calibratetrig.getValue(), "T", 1) == 0) {strcpy(calibrateCHAR, one);}
@@ -221,7 +221,7 @@ void Wifimanager_portal(char *portal_name, char *portal_password, bool shouldSav
 void char_conversion() {
   oscEndpointIP.fromString(oscIP);
   oscEndpointPORT = atoi(oscPORT);
-  //directSendOSC = atoi(directSendOSCCHAR);
+  directSendOSC = atoi(directSendOSCCHAR);
   infoTstick[0] = atoi(infoTstickCHAR0);
   infoTstick[1] = atoi(infoTstickCHAR1);
   calibrate = atoi(calibrateCHAR);
@@ -240,7 +240,7 @@ void save_to_json(bool WiFiSerialDebug) {
   json["device"] = device;
   json["APpasswd"] = APpasswd;
   json["APpasswdValidate"] = APpasswdValidate;
-  //json["directSendOSC"] = directSendOSCCHAR;
+  json["directSendOSC"] = directSendOSCCHAR;
   json["oscIP"] = oscIP;
   json["oscPORT"] = oscPORT;
   json["infoTstick0"] = infoTstickCHAR0;
