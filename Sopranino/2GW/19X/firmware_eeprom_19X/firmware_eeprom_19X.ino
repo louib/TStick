@@ -114,31 +114,6 @@ char stored_psk[20];
 #define DEBUG true
 #define CALIB false
 
-//////////////////////////
-// Capsense Definitions //
-//////////////////////////
-
-#define SENSOR_EN 0x00
-#define FSS_EN 0x02
-#define SENSITIVITY0 0x08
-#define SENSITIVITY1 0x09
-#define SENSITIVITY2 0x0A
-#define SENSITIVITY3 0x0B
-#define DEVICE_ID 0x90    // Should return 0xA05 (returns 2 bytes)
-#define FAMILY_ID 0x8F
-#define SYSTEM_STATUS 0x8A
-#define I2C_ADDR 0x37     // Should return 0x37
-#define REFRESH_CTRL 0x52
-#define SENSOR_EN 0x00    // We should set it to 0xFF for 16 sensors
-#define BUTTON_STAT 0xAA  // Here we red the status of the sensors (2 bytes)
-#define CTRL_CMD 0x86     // To configure the Capsense
-#define CTRL_CMD_STATUS 0x88
-#define CTRL_CMD_ERROR 0x89
-#define BUTTON_LBR 0x1F
-#define SPO_CFG 0x4C      //CS15 configuration address
-#define GPO_CFG 0x40
-#define CALC_CRC 0x94
-#define CONFIG_CRC 0x7E
 
 //////////////////////
 // WiFi Definitions //
@@ -176,6 +151,9 @@ float outAccel[3] = {0, 0, 0};
 float outGyro[3] = {0, 0, 0};
 float outMag[3] = {0, 0, 0};
 
+uint32_t lastUpdateQuat = 0;    // used to calculate integration interval
+uint32_t NowQuat = 0;           // used to calculate integration interval
+
 // global constants for 9 DoF fusion and AHRS (Attitude and Heading Reference System)
 #define GyroMeasError PI * (40.0f / 180.0f)       // gyroscope measurement error in rads/s (shown as 3 deg/s)
 #define GyroMeasDrift PI * (0.0f / 180.0f)      // gyroscope measurement drift in rad/s/s (shown as 0.0 deg/s/s)
@@ -190,6 +168,10 @@ float outMag[3] = {0, 0, 0};
 #define beta sqrt(3.0f / 4.0f) * GyroMeasError   // compute beta
 #define zeta sqrt(3.0f / 4.0f) * GyroMeasDrift   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
 
+//float pitch, yaw, roll, heading;
+float abias[3] = {0, 0, 0}, gbias[3] = {0, 0, 0};
+float q1[4] = {0.0f, 0.0f, 0.0f, 0.0f}; // vector to tare the systems of coordinate
+float R[3][3] = {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}};
 
 ////////////////////////////
 // Sketch Output Settings //

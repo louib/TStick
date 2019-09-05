@@ -121,6 +121,38 @@ if (sendOSC){
         oscEndpoint.endPacket();
         msg6.empty();
         deltaTransferRate = millis();
+
+        OSCMessage msg7("/raw");
+        msg7.add(outAccel[0]);
+        msg7.add(outAccel[1]);
+        msg7.add(outAccel[2]);
+        msg7.add(outGyro[0]);
+        msg7.add(outGyro[1]);
+        msg7.add(outGyro[2]);
+        msg7.add(outMag[0]);
+        msg7.add(outMag[1]);
+        msg7.add(outMag[2]);
+        msg7.add(millis()/1000.0f);
+        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
+        msg7.send(oscEndpoint);
+        oscEndpoint.endPacket();
+        msg7.empty();
+
+        // quaternion update and coordinate rotation
+        NowQuat = micros();
+        deltat = ((NowQuat - lastUpdateQuat)/1000000.0f); // set integration time by time elapsed since last filter update
+        lastUpdateQuat = NowQuat;
+        MadgwickQuaternionUpdate(outAccel[0], outAccel[1], outAccel[2], outGyro[0]*PI/180.0f, outGyro[1]*PI/180.0f, outGyro[2]*PI/180.0f, outMag[0], outMag[1], outMag[2]);
+
+        OSCMessage msg8("/orientation");
+        msg8.add(q[0]);
+        msg8.add(q[1]);
+        msg8.add(q[2]);
+        msg8.add(q[3]);
+        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
+        msg8.send(oscEndpoint);
+        oscEndpoint.endPacket();
+        msg8.empty();
           
       }
     }  
