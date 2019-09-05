@@ -7,7 +7,7 @@ OscP5 oscP5;
 // shape parameters
 float radius = 65;
 float ang = 0; //, //ang2 = 0;
-int pts = 5;
+int pts = 8;
 float depth = 200;
 
 /* a NetAddress contains the ip address and port number of a remote location in the network. */
@@ -26,7 +26,7 @@ int time = millis();
 void setup() {
 
   oscP5 = new OscP5(this, myListeningPort);
-  oscSendAddress = new NetAddress("192.168.10.10", myBroadcastPort);
+  oscSendAddress = new NetAddress("192.168.10.8", myBroadcastPort);
 
   size(1024, 768, P3D); 
   fill(150);
@@ -97,7 +97,7 @@ void oscEvent(OscMessage theOscMessage) {
   //theOscMessage.print();
 
   //if (theOscMessage.checkAddrPattern("/orientation/ypr_at")==true) {
-  if (theOscMessage.checkAddrPattern("/orientation/ypr")==true) {
+  if (theOscMessage.checkAddrPattern("/rawypr")==true) {
     yaw = theOscMessage.get(0).floatValue();
     pitch = theOscMessage.get(1).floatValue();
     roll = theOscMessage.get(2).floatValue();
