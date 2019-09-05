@@ -30,20 +30,18 @@ boolean readTouch(){
 void TStickRoutine() {
   
 if (sendOSC){
+  static OSCBundle bundle;
       if (millis()-lastRead>touchInterval) {
         lastRead = millis();
         if (readTouch()){
           OSCMessage msg1("/rawcapsense");
           msg1.add((int)touch[0] & touchMask[0]);
           msg1.add((int)touch[1] & touchMask[1]);
-          oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-          msg1.send(oscEndpoint);
-          oscEndpoint.endPacket();
-          msg1.empty();
+          bundle.add(msg1);
         }
       }
     
-      if ((millis() - deltaTransferRate) > dataTransferRate){
+      //if ((millis() - deltaTransferRate) > dataTransferRate){
 
         lsm.read();  /* ask it to read in the data */ 
       
@@ -71,28 +69,19 @@ if (sendOSC){
         msg2.add(outGyro[0]);
         msg2.add(outGyro[1]);
         msg2.add(outGyro[2]);
-        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-        msg2.send(oscEndpoint);
-        oscEndpoint.endPacket();
-        msg2.empty();
+        bundle.add(msg2);
     
         OSCMessage msg3("/rawaccel");
         msg3.add(outAccel[0]);
         msg3.add(outAccel[1]);
         msg3.add(outAccel[2]);
-        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-        msg3.send(oscEndpoint);
-        oscEndpoint.endPacket();
-        msg3.empty();
+        bundle.add(msg3);
     
         OSCMessage msg4("/rawmag");
         msg4.add(outMag[0]);
         msg4.add(outMag[1]);
         msg4.add(outMag[2]);
-        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-        msg4.send(oscEndpoint);
-        oscEndpoint.endPacket();
-        msg4.empty();
+        bundle.add(msg4);
     
         int pressure = analogRead(pressurePin);
         if (calibrate == 1) {
@@ -102,11 +91,9 @@ if (sendOSC){
         }
         OSCMessage msg5("/rawpressure");
         msg5.add(pressure);
-        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-        msg5.send(oscEndpoint);
-        oscEndpoint.endPacket();
-        msg5.empty();
-        deltaTransferRate = millis();
+        bundle.add(msg5);
+
+        //deltaTransferRate = millis();
 
         unsigned int piezo = analogRead(piezoPin);
 //        if (calibrate == 1) {
@@ -116,13 +103,16 @@ if (sendOSC){
 //        piezo = constrain(map(piezo, calibrationData[0], calibrationData[1], 0, 4095), 0, 4095);
         OSCMessage msg6("/rawpiezo");
         msg6.add(piezo);
-        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-        msg6.send(oscEndpoint);
-        oscEndpoint.endPacket();
-        msg6.empty();
-        deltaTransferRate = millis();
+        bundle.add(msg6);
+
+        //deltaTransferRate = millis();
           
-      }
+      //}
+
+        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
+        bundle.send(oscEndpoint);
+        oscEndpoint.endPacket();
+        bundle.empty();
     }  
     ledBlink();
     then = now;
