@@ -154,6 +154,9 @@ float outAccel[3] = {0, 0, 0};
 float outGyro[3] = {0, 0, 0};
 float outMag[3] = {0, 0, 0};
 
+uint32_t lastUpdateQuat = 0;    // used to calculate integration interval
+uint32_t NowQuat = 0;           // used to calculate integration interval
+
 // global constants for 9 DoF fusion and AHRS (Attitude and Heading Reference System)
 #define GyroMeasError PI * (40.0f / 180.0f)       // gyroscope measurement error in rads/s (shown as 3 deg/s)
 #define GyroMeasDrift PI * (0.0f / 180.0f)      // gyroscope measurement drift in rad/s/s (shown as 0.0 deg/s/s)
@@ -168,6 +171,10 @@ float outMag[3] = {0, 0, 0};
 #define beta sqrt(3.0f / 4.0f) * GyroMeasError   // compute beta
 #define zeta sqrt(3.0f / 4.0f) * GyroMeasDrift   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
 
+//float pitch, yaw, roll, heading;
+float abias[3] = {0, 0, 0}, gbias[3] = {0, 0, 0};
+float q1[4] = {0.0f, 0.0f, 0.0f, 0.0f}; // vector to tare the systems of coordinate
+float R[3][3] = {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}};
 
 ////////////////////////////
 // Sketch Output Settings //

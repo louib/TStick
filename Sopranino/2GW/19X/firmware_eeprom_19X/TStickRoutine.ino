@@ -41,8 +41,6 @@ if (sendOSC){
         }
       }
     
-      //if ((millis() - deltaTransferRate) > dataTransferRate){
-
         lsm.read();  /* ask it to read in the data */ 
       
         /* Get a new sensor event */ 
@@ -93,8 +91,6 @@ if (sendOSC){
         msg5.add(pressure);
         bundle.add(msg5);
 
-        //deltaTransferRate = millis();
-
         unsigned int piezo = analogRead(piezoPin);
 //        if (calibrate == 1) {
 //          calibrationData[0] = constrain(min(calibrationData[0], piezo), 0, 4095);
@@ -105,14 +101,43 @@ if (sendOSC){
         msg6.add(piezo);
         bundle.add(msg6);
 
-        //deltaTransferRate = millis();
-          
-      //}
+        msg6.empty();
+        deltaTransferRate = millis();
+
+        OSCMessage msg7("/raw");
+        msg7.add(outAccel[0]);
+        msg7.add(outAccel[1]);
+        msg7.add(outAccel[2]);
+        msg7.add(outGyro[0]);
+        msg7.add(outGyro[1]);
+        msg7.add(outGyro[2]);
+        msg7.add(outMag[0]);
+        msg7.add(outMag[1]);
+        msg7.add(outMag[2]);
+        msg7.add(millis()/1000.0f);
+        oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
+        msg7.send(oscEndpoint);
+        oscEndpoint.endPacket();
+        msg7.empty();
+
+        // quaternion update and coordinate rotation
+        NowQuat = micros();
+        deltat = ((NowQuat - lastUpdateQuat)/1000000.0f); // set integration time by time elapsed since last filter update
+        lastUpdateQuat = NowQuat;
+        MadgwickQuaternionUpdate(outAccel[0], outAccel[1], outAccel[2], outGyro[0]*PI/180.0f, outGyro[1]*PI/180.0f, outGyro[2]*PI/180.0f, outMag[0], outMag[1], outMag[2]);
+
+        OSCMessage msg8("/orientation");
+        msg8.add(q[0]);
+        msg8.add(q[1]);
+        msg8.add(q[2]);
+        msg8.add(q[3]);
+        bundle.add(msg8);
 
         oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
         bundle.send(oscEndpoint);
         oscEndpoint.endPacket();
         bundle.empty();
+          
     }  
     ledBlink();
     then = now;
