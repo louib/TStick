@@ -79,7 +79,10 @@
 
 #include <Wire.h>
 #include <WiFiUdp.h>
-#include <OSCMessage.h> // https://github.com/CNMAT/OSC
+
+// https://github.com/CNMAT/OSC
+#include <OSCMessage.h>
+#include <OSCBundle.h>
 
 #include <SPI.h>
 #include <Adafruit_LSM9DS1.h> // https://github.com/adafruit/Adafruit_LSM9DS1
