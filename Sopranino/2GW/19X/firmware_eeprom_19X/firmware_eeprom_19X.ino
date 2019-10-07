@@ -209,8 +209,6 @@ unsigned int calibrationData[2] = {0, 1024};
 char calibrationDataCHAR0[6] = "0"; // same cal # to be saved in json
 char calibrationDataCHAR1[6] = "1024"; // same cal # to be saved in json
 unsigned int pressure = 0;
-uint32_t dataTransferRate = 20; // sending data at 50Hz
-uint32_t deltaTransferRate = 0;
 const int buttonPin = 15;
 
 

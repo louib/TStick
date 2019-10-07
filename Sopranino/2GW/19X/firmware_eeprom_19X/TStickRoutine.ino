@@ -97,9 +97,6 @@ void TStickRoutine() {
     msg6.add(piezo);
     bundle.add(msg6);
   
-    msg6.empty();
-    deltaTransferRate = millis();
-  
     OSCMessage msg7("/raw");
     msg7.add(outAccel[0]);
     msg7.add(outAccel[1]);
@@ -111,10 +108,7 @@ void TStickRoutine() {
     msg7.add(outMag[1]);
     msg7.add(outMag[2]);
     msg7.add(millis()/1000.0f);
-    oscEndpoint.beginPacket(oscEndpointIP, oscEndpointPORT);
-    msg7.send(oscEndpoint);
-    oscEndpoint.endPacket();
-    msg7.empty();
+    bundle.add(msg7);
   
     // quaternion update and coordinate rotation
     NowQuat = micros();
