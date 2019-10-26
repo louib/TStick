@@ -38,7 +38,7 @@ Qty   | Type                | Description
 
 ## Schematic:
 
-![T-Stick Sopranino schematics](/images/Sopranino2GW_schematics.png "T-Stick Sopranino schematics")
+![T-Stick Sopranino schematics](./images/Sopranino2GW_schematics.png "T-Stick Sopranino schematics")
 
 
 ## Instructions:
@@ -60,11 +60,11 @@ All the building tools can be found in the Machine Shop at the McGill Music Tech
 
 The [LSM9DS1](https://www.sparkfun.com/products/13284) IMU connects via another SH1.0 cable to the other socket on the Capsense for I2C communication. One end has the SH housing the other is open to solder onto the IMU breakout board. There are also 2 3D printed bases to attach the IMU to the frame.
 
-![T-Stick Sopranino IMU parts](/images/SopraninoIMUparts.jpg "T-Stick Sopranino IMU parts")
+![T-Stick Sopranino IMU parts](/Sopranino/2GW/FW19101/Docs/images/SopraninoIMUparts.jpg "T-Stick Sopranino IMU parts")
 
 The T-Stick Spatial orientation is dened as follows:
 
-![T-Stick Sopranino orientation](/images/T-Stick-Orientation.png "T-Stick Sopranino orientation")
+![T-Stick Sopranino orientation](/Sopranino/2GW/FW19101/Docs/images/T-Stick-Orientation.png "T-Stick Sopranino orientation")
 
 Please, install the IMU so that this conguration is kept consistent will the design.
 
