@@ -81,14 +81,14 @@ __Recommendation: Solder long cables to the FSR pins. They are very delicate. Pu
 
 Here’s the pinout for the LM358 opamp you will be using in the above circuit:
 
-'''
+```
                       +--()--+
              Output A | 1   8| V+
     Inverting Input A | 2   7| Output B
 Non-Inverting Input A | 3   6| Inverting Input B
                   GND | 4   5| Non-Inverting Input B
                       +------+
-'''
+```
 
 
 ![T-Stick Sopranino - Envelope Follower Circuit](./images/envelope_follower.png "T-Stick Sopranino - Envelope Follower Circuit")
