@@ -118,14 +118,14 @@ Notice that you have to download the latest Arduino IDE version and setup the bo
 
 ## More info:
 
-Version 1.1: Edu Meneses - eduardo.meneses@mail.mcgill.ca
+Version 1.1: Edu Meneses - eduardo.meneses@mail.mcgill.ca\
 Version 1.0: Created by: Alex Nieva - alex.nieva@mail.mcgill.ca
 
 __Input Devices and Music Interaction Laboratory__
-http://www.idmil.org
-Schulich School of Music
-McGill University
-550 Rue Sherbrooke Ouest, Suite 500
-Montreal, QC, H3A 1E
+http://www.idmil.org\
+Schulich School of Music\
+McGill University\
+550 Rue Sherbrooke Ouest, Suite 500\
+Montreal, QC, H3A 1E\
 Canada
 
