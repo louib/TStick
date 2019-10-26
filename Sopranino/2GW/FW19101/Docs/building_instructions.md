@@ -1,6 +1,6 @@
 # Building a Sopranino T-Stick (v1.1)
 
-![building_Sopranino image](/Sopranino/2GW/FW19101/Docs/images/building_Sopranino.jpg "Building a Sopranino T-Stick")
+![building_Sopranino image](./images/building_Sopranino.jpg "Building a Sopranino T-Stick")
 
 
 ## Bill of Materials:
@@ -60,11 +60,11 @@ All the building tools can be found in the Machine Shop at the McGill Music Tech
 
 The [LSM9DS1](https://www.sparkfun.com/products/13284) IMU connects via another SH1.0 cable to the other socket on the Capsense for I2C communication. One end has the SH housing the other is open to solder onto the IMU breakout board. There are also 2 3D printed bases to attach the IMU to the frame.
 
-![T-Stick Sopranino IMU parts](/Sopranino/2GW/FW19101/Docs/images/SopraninoIMUparts.jpg "T-Stick Sopranino IMU parts")
+![T-Stick Sopranino IMU parts](./images/SopraninoIMUparts.jpg "T-Stick Sopranino IMU parts")
 
 The T-Stick Spatial orientation is dened as follows:
 
-![T-Stick Sopranino orientation](/Sopranino/2GW/FW19101/Docs/images/T-Stick-Orientation.png "T-Stick Sopranino orientation")
+![T-Stick Sopranino orientation](./images/T-Stick-Orientation.png "T-Stick Sopranino orientation")
 
 Please, install the IMU so that this conguration is kept consistent will the design.
 
@@ -73,7 +73,7 @@ Please, install the IMU so that this conguration is kept consistent will the de
 
 The Force Sensitive Resistor and the Piezoelectric sensor are glued to the frame with epoxy, superglue, or hot glue. 
 
-![T-Stick Sopranino - piezo placement](/images/piezo_in_place_h.jpg "T-Stick Sopranino - piezo placement")
+![T-Stick Sopranino - piezo placement](./images/piezo_in_place_h.jpg "T-Stick Sopranino - piezo placement")
 
 The signal processing circuit is all analog and needs to be soldered to a perfboard. The piezoelectric circuit output is to be soldered to pin 32 of the ESP32 and the FSR circuit output to pin 33. Electronic building tools can be found in the Electronics Shop at the McGill Music Tech Department.
 
@@ -91,10 +91,10 @@ Non-Inverting Input A | 3   6| Inverting Input B
 '''
 
 
-![T-Stick Sopranino - Envelope Follower Circuit](/images/envelope_follower.png "T-Stick Sopranino - Envelope Follower Circuit")
+![T-Stick Sopranino - Envelope Follower Circuit](./images/envelope_follower.png "T-Stick Sopranino - Envelope Follower Circuit")
 _Envelope Follower Circuit_
 
-![T-Stick Sopranino - Voltage Divider Circuit](/images/voltage_divider.png "T-Stick Sopranino - Envelope Voltage Divider")
+![T-Stick Sopranino - Voltage Divider Circuit](./images/voltage_divider.png "T-Stick Sopranino - Envelope Voltage Divider")
 _Voltage Divider Circuit_
 
 ###### Microcontroller:
