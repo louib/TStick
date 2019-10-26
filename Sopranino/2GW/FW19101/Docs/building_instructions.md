@@ -1,6 +1,6 @@
 # Building a Sopranino T-Stick (v1.1)
 
-![building_Sopranino image](/images/building_Sopranino.jpg "Building a Sopranino T-Stick")
+![building_Sopranino image](/Sopranino/2GW/FW19101/Docs/images/building_Sopranino.jpg "Building a Sopranino T-Stick")
 
 
 ## Bill of Materials:
@@ -43,7 +43,7 @@ Qty   | Type                | Description
 
 ## Instructions:
 
-###### Building the Frame:
+#### Building the Frame:
 
 Cut the PVC in half as in the picture and tape the conductive tape 1.5cm apart. 
 Length of holes assembly is 1.5 * 15 for 16 strips. That is 22.5cm. You need aprox. 8 cm of copper tape per strip.
