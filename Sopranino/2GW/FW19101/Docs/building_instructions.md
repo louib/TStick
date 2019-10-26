@@ -56,7 +56,7 @@ __CAUTION__: THE CAPSENSE BOARD HAS THE CONNECTORS LABELED FOR THE IMU AND MICRO
 All the building tools can be found in the Machine Shop at the McGill Music Tech Department.
 
 
-###### IMU:
+#### IMU:
 
 The [LSM9DS1](https://www.sparkfun.com/products/13284) IMU connects via another SH1.0 cable to the other socket on the Capsense for I2C communication. One end has the SH housing the other is open to solder onto the IMU breakout board. There are also 2 3D printed bases to attach the IMU to the frame.
 
@@ -69,7 +69,7 @@ The T-Stick Spatial orientation is dened as follows:
 Please, install the IMU so that this conguration is kept consistent will the design.
 
 
-###### FSR and Piezo Electronics:
+#### FSR and Piezo Electronics:
 
 The Force Sensitive Resistor and the Piezoelectric sensor are glued to the frame with epoxy, superglue, or hot glue. 
 
@@ -90,18 +90,20 @@ Non-Inverting Input A | 3   6| Inverting Input B
                       +------+
 ```
 
+##### Envelope Follower Circuit
 
 ![T-Stick Sopranino - Envelope Follower Circuit](./images/envelope_follower.png "T-Stick Sopranino - Envelope Follower Circuit")
-_Envelope Follower Circuit_
+
+##### Voltage Divider Circuit
 
 ![T-Stick Sopranino - Voltage Divider Circuit](./images/voltage_divider.png "T-Stick Sopranino - Envelope Voltage Divider")
-_Voltage Divider Circuit_
 
-###### Microcontroller:
+
+#### Microcontroller:
 
 The microcontroller to be used with the T-Stick is the Lolin D32 PRO. You can check the tech specs at https://wiki.wemos.cc/products:d32:d32_pro.
 
-###### Firmware:
+#### Firmware:
 
 The official T-Stick repository is located at https://github.com/IDMIL/TStick. Second generation (wireless) sopranino T-Stick firmwares can be found at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/19X. 
 
