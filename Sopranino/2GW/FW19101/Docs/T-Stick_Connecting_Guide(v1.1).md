@@ -1,4 +1,4 @@
-![IDMIL logo](./images/IDMIL-logo.png "IDMIL logo") ![McGill logo](./images/mcgill-logo.png "McGill logo")
+<img src="./images/IDMIL-logo.png" alt="IDMIL logo"	title="IDMIL logo" width=auto height="75" /> &emsp; &emsp; &emsp; &emsp; <img src="./images/mcgill-logo.png" alt="McGill logo"	title="McGill logo" width=auto height="75" />
 
 # T-Stick Connecting Guide (v1.1)
 
@@ -21,7 +21,7 @@ The process, after learned, should take no more than 3min.
 
 -  Connect to the T-Stick network:
 
-![Connect to the T-Stick network](./images/3_Connect_2_tstick_network(v1.1).jpg "Connect to the T-Stick network")
+<img src="./images/3_Connect_2_tstick_network(v1.1).jpg" alt="Connect to the T-Stick network"	title="Connect to the T-Stick network" width="50%" height=auto />
 
 - The setup portal should open automatically as soon as the computer connects to the T-Stick network. The page will inform the saved SSID and connection status. Click on Configuration.
 
@@ -48,7 +48,7 @@ careful, the password is never hidden).
 
 - Connect your computer to the same network the T-Stick currently is. In your case, we will connect to _guitarami\_router_.
 
-![Connect](./images/9_connect(v1.1).jpg "Connect")
+<img src="./images/9_connect(v1.1).jpg" alt="Connect"	title="Connect" width="50%" height=auto />
 
 - Open your web browser and type the T-Stick IP address to access the setup portal using the chosen network.
 
@@ -82,8 +82,8 @@ You will see the main portal screen through the web browser. Enter “Configurat
 Version 1.1: (2019/10/27) Edu Meneses - eduardo.meneses@mail.mcgill.ca\
 Version 1.0: (2019/08/28) Edu Meneses
 
-__Input Devices and Music Interaction Laboratory__
-http://www.idmil.org\
+__Input Devices and Music Interaction Laboratory__\
+[http://www.idmil.org](http://www.idmil.org)\
 Schulich School of Music\
 McGill University\
 550 Rue Sherbrooke Ouest, Suite 500\
