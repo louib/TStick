@@ -1,0 +1,69 @@
+{
+    "device": "T-Stick_SN_red_194",
+    "APpasswd": "mappings",
+    "APpasswdValidate": "mappings",
+    "directSendOSC": 1,
+    "oscIP": "192.168.5.1",
+    "oscPORT": "57120",
+    "infoTstick": [
+        "19X",
+        "19101"
+    ],
+    "FSRcalibration": 0,
+    "FSRcalibrationValues": [
+        0,
+        4095
+    ],
+    "touchMask": [
+        255,
+        255
+    ],
+    "abias": [
+        0, 
+        0, 
+        0
+    ],
+    "mbias": [
+        0, 
+        0, 
+        0
+    ],
+    "gbias": [
+        0,
+        0,
+        0
+    ],
+    "acclcalibration": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "gyrocalibration": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+    ],
+    "magncalibration": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ]
+}
