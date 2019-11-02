@@ -1,17 +1,17 @@
 {
-    "device": "T-Stick_SN_red_194",
+    "device": "T-Stick_SN_color_19X",
     "author": "IDMIL",
-    "nickname": "black",
+    "nickname": "color",
     "APpasswd": "mappings",
-    "lastConnectedNetwork": "tstick",
-    "id": 194,
-    "firmware": 99099,
-    "oscIP": "192.168.5.1",
-    "oscPORT": 57120,
-    "directSendOSC": 1,
+    "lastConnectedNetwork": "ssid",
+    "lastStoredPsk": "password",
+    "id": 190,
+    "firmware": 19101,
+    "oscIP": "192.168.10.1",
+    "oscPORT": 8000,
     "FSRcalibration": 0,
     "FSRcalibrationValues": [
-        2048,
+        0,
         4095
     ],
     "touchMask": [

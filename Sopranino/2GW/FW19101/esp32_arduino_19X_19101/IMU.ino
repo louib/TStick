@@ -2,6 +2,8 @@
 
 void initIMU() {
 
+  Serial.println("\nConfiguring IMU and MIMU library...");
+
   mimu.setup();
   calibrator.cc = MIMUCalibrationConstants{}; // reset calibration
 
@@ -26,4 +28,6 @@ void initIMU() {
   //lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_245DPS);
   //lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_500DPS);
   //lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_2000DPS);
+
+  Serial.println("IMU/MIMU configuration complete");
 }

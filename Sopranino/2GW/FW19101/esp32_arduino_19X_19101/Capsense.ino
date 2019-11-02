@@ -27,76 +27,64 @@
 
 void initCapsense() {
 
+  Serial.println("\nChecking Capsense board:");
+  
   //Wire.begin();
   Wire.setClock(400000);
 
-  if (DEBUG) {
-    ///////
-    byte infoboard = 0;
-    Wire.beginTransmission(I2C_ADDR);
-    Wire.write(SYSTEM_STATUS);
-    Wire.endTransmission();
+  Wire.beginTransmission(I2C_ADDR);
+  Wire.write(SYSTEM_STATUS);
+  Wire.endTransmission();
 
-    // This should be 0 since a configuration other than the factory is loaded.
-    Wire.requestFrom(I2C_ADDR, 1);
-    if (DEBUG) {
-      Serial.print("Wire.available First: ");
-      Serial.println(Wire.available());
-    }
-    infoboard = Wire.read();
-    if (DEBUG) {
-      Serial.println("This should be 0");
-      Serial.print("SYSTEM_STATUS: ");
-      Serial.println(infoboard);
-    }
-    Wire.endTransmission();
+  // This should be 0 since a configuration other than the factory is loaded.
+  Wire.requestFrom(I2C_ADDR, 1);
+  Serial.print("Wire.available First: "); Serial.println(Wire.available());
 
-    ///////
-    Wire.beginTransmission(I2C_ADDR);
-    Wire.write(FAMILY_ID);
-    Wire.endTransmission();
+  Serial.print("SYSTEM_STATUS: ");
+  if (Wire.read() == 0) {Serial.print ("OK (");} else {Serial.print("Fail (");}
+  Serial.print(Wire.read()); Serial.println(")");
+  Wire.endTransmission();
 
-    Wire.requestFrom(I2C_ADDR, 1);
-    if (DEBUG) {
-      Serial.print("Wire.available SECOND: ");
-      Serial.println(Wire.available());
-    }
-    infoboard = Wire.read();
-    if (DEBUG) {
-      Serial.println("This should be 154");
-      Serial.print("FAMILY_ID: ");
-      Serial.println(infoboard);
-    }
-    Wire.endTransmission();
+  Wire.beginTransmission(I2C_ADDR);
+  Wire.write(FAMILY_ID);
+  Wire.endTransmission();
+
+  Wire.requestFrom(I2C_ADDR, 1);
+  Serial.print("Wire.available SECOND: "); Serial.println(Wire.available());
+
+  Serial.print("FAMILY_ID: ");
+  if (Wire.read() == 154) {Serial.print("OK (");} else {Serial.print("Fail (");}
+  Serial.print(Wire.read()); Serial.println(")");
+  Wire.endTransmission();
 
 
-    //  Wire.beginTransmission(I2C_ADDR);
-    //  Wire.write(DEVICE_ID);
-    //  Wire.endTransmission();
-    //  //delay(100);
-    //
-    //  Wire.requestFrom(I2C_ADDR,2);
-    //  Serial.print("Wire.available THIRD: ");
-    //  Serial.println(Wire.available());
-    //  while (Wire.available()) {
-    //    byte c = Wire.read();
-    //    Serial.println(c);
-    //  }
-    //delay(100);
-    //  Wire.beginTransmission(I2C_ADDR);
-    //  Wire.write(REFRESH_CTRL);
-    //  Wire.endTransmission();
-    //  //delay(100);
-    //
-    //  Wire.requestFrom(I2C_ADDR,1);
-    //  Serial.print("Wire.available sixth: ");
-    //  Serial.println(Wire.available());
-    //  infoboard = Wire.read();
-    //  Serial.print("REFRESH_CTRL VALUE: ");
-    //  Serial.println(infoboard);
-    //  Wire.endTransmission();
-    //delay(100);
-  }
+  //  Wire.beginTransmission(I2C_ADDR);
+  //  Wire.write(DEVICE_ID);
+  //  Wire.endTransmission();
+  //  //delay(100);
+  //
+  //  Wire.requestFrom(I2C_ADDR,2);
+  //  Serial.print("Wire.available THIRD: ");
+  //  Serial.println(Wire.available());
+  //  while (Wire.available()) {
+  //    byte c = Wire.read();
+  //    Serial.println(c);
+  //  }
+  //delay(100);
+  //  Wire.beginTransmission(I2C_ADDR);
+  //  Wire.write(REFRESH_CTRL);
+  //  Wire.endTransmission();
+  //  //delay(100);
+  //
+  //  Wire.requestFrom(I2C_ADDR,1);
+  //  Serial.print("Wire.available sixth: ");
+  //  Serial.println(Wire.available());
+  //  infoboard = Wire.read();
+  //  Serial.print("REFRESH_CTRL VALUE: ");
+  //  Serial.println(infoboard);
+  //  Wire.endTransmission();
+  //delay(100);
+
 
   //**********************************
   // Capsense pins configuration
@@ -164,14 +152,13 @@ void initCapsense() {
   Wire.endTransmission();
 
   Wire.requestFrom(I2C_ADDR, 2);
-  if (DEBUG) {
-    Serial.print("Wire.available FOURTH: ");
-    Serial.println(Wire.available());
-  }
+  Serial.print("Wire.available FOURTH: "); Serial.print(Wire.available());
+  Serial.print(" ( ");
   while (Wire.available()) { // slave may send less than requested
     byte c = Wire.read(); // receive a byte as character
-    if (DEBUG) {Serial.println(c); }        // print the character
+    Serial.print(c); Serial.print(" "); // print the character
   }
+  Serial.println(")");  
 
   /*
       WRITING SETTINGS IN CAPSENSE
@@ -202,12 +189,14 @@ void initCapsense() {
   Wire.endTransmission();
 
   Wire.requestFrom(I2C_ADDR, 2);
+  Serial.print("Testing Wire.read: "); 
   while (Wire.available()) { // slave may send less than requested
     byte c = Wire.read();
-    Serial.println(c);         // print the character
+    Serial.print(c); Serial.print(" "); // print the character
     crc[i] = c; // receive a byte as character
     i++;
   }
+  Serial.println();
   Wire.endTransmission();
 
   // Write CRC to CONFIG_CRC
@@ -232,10 +221,9 @@ void initCapsense() {
 
     Wire.requestFrom(I2C_ADDR, 1);
     result = Wire.read();
-    if (DEBUG) {
-      Serial.print("result CTRL_CMD_STATUS 1: ");
-      Serial.println(result);
-    }
+    Serial.print("result CTRL_CMD_STATUS 1: ");
+    Serial.println(result);
+ 
     if (result == 1) {
       Wire.beginTransmission(I2C_ADDR);
       Wire.write(CTRL_CMD_ERROR);
@@ -243,10 +231,8 @@ void initCapsense() {
 
       Wire.requestFrom(I2C_ADDR, 1);
       result = Wire.read();
-      if (DEBUG) {
-        Serial.print("result CTRL_CMD_ERROR 1: ");
-        Serial.println(result);
-      }
+      Serial.print("result CTRL_CMD_ERROR 1: ");
+      Serial.println(result);
       Wire.endTransmission();
     }
     Wire.endTransmission();
@@ -267,10 +253,8 @@ void initCapsense() {
 
     Wire.requestFrom(I2C_ADDR, 1);
     result = Wire.read();
-    if (DEBUG) {
-      Serial.print("result CTRL_CMD_STATUS 2: ");
-      Serial.println(result);
-    }
+    Serial.print("result CTRL_CMD_STATUS 2: ");
+    Serial.println(result);
     if (result == 1) {
       Wire.beginTransmission(I2C_ADDR);
       Wire.write(CTRL_CMD_ERROR);
@@ -278,10 +262,8 @@ void initCapsense() {
 
       Wire.requestFrom(I2C_ADDR, 1);
       result = Wire.read();
-      if (DEBUG) {
-        Serial.print("result CTRL_CMD_ERROR 2: ");
-        Serial.println(result);
-      }
+      Serial.print("result CTRL_CMD_ERROR 2: ");
+      Serial.println(result);
       Wire.endTransmission();
     }
     Wire.endTransmission();
