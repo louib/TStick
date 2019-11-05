@@ -29,6 +29,9 @@ void readData() {
     copyFloatArrayToVar(reading.magn.data(), reading.magn.size(), Data.magn);
     copyFloatArrayToVar(reading.data, reading.size, Data.raw);
     copyFloatArrayToVar(quat.coeffs().data(), quat.coeffs().size(), Data.quat);
+    Data.gyro_map[0] = mapfloat(Data.gyro[0], -5.00421, 5.00344, -32764.00, 32764.00);
+    Data.gyro_map[1] = mapfloat(Data.gyro[1], -5.00421, 5.00344, -32764.00, 32764.00);
+    Data.gyro_map[2] = mapfloat(Data.gyro[2], -5.00421, 5.00344, -32764.00, 32764.00);
   } 
 }
 
@@ -109,4 +112,8 @@ void printData() {
         }
     Serial.println();
   }
+}
+
+float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

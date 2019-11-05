@@ -127,13 +127,14 @@ struct DataStruct {
   int piezo;
   float accl[3];
   float gyro[3];
+  float gyro_map[3];
   float magn[3];
   float raw[9];
   float quat[4];
   float ypr[3];
 };
 
-DataStruct Data = {{0,0},0,0,{0,0,0},{0,0,0},{0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0},{0,0,0}};
+DataStruct Data = {{0,0},0,0,{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0},{0,0,0}};
 
 IPAddress osc_IP; // used to send OSC messages
 char APpasswdTemp[15]; // used to check before save new T-Stick passwd
@@ -268,14 +269,17 @@ void loop() {
   // send data (OSC)
   sendOSC();
 
+  // receiving OSC
+  receiveOSC();
+
   // printing sensor data (serial port)
   //printData();
 
   // LED modes:
   // ON = Setup mode
-  // long blink = nothing so far...
-  // short blink = not connected to network, sending OSC-over-USB messages
-  // flickering = connected and sending data
+  // long blink = not connected to network
+  // short blink = connected and sending data
+  // flickering =  receiving OSC
   if ( WiFi.status() == WL_CONNECTED ) {blinkLED(flickering);}
   else {blinkLED(short_blink);}
 }

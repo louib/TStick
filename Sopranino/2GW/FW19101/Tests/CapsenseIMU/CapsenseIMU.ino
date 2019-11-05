@@ -1,9 +1,28 @@
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_LSM9DS1.h>
+#include <Adafruit_Sensor.h>  // not used in this demo but required!
+
+// i2c
+Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1();
+
+#define LSM9DS1_SCK A5
+#define LSM9DS1_MISO 12
+#define LSM9DS1_MOSI A4
+#define LSM9DS1_XGCS 6
+#define LSM9DS1_MCS 5
+// You can also use software SPI
+//Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1(LSM9DS1_SCK, LSM9DS1_MISO, LSM9DS1_MOSI, LSM9DS1_XGCS, LSM9DS1_MCS);
+// Or hardware SPI! In this case, only CS pins are passed in
+//Adafruit_LSM9DS1 lsm = Adafruit_LSM9DS1(LSM9DS1_XGCS, LSM9DS1_MCS);
+
+bool Capsense_OK = false;
+bool IMU_OK = false;
 
 //////////////////////////
 // Capsense Definitions //
 //////////////////////////
 
-// CY8CMBR3116
 
 #define SENSOR_EN 0x00
 #define FSS_EN 0x02
@@ -12,7 +31,7 @@
 #define SENSITIVITY2 0x0A
 #define SENSITIVITY3 0x0B
 #define DEVICE_ID 0x90    // Should return 0xA05 (returns 2 bytes)
-#define FAMILY_ID 0x8F
+#define FAMILY_ID 0x8F //143
 #define SYSTEM_STATUS 0x8A
 #define I2C_ADDR 0x37     // Should return 0x37
 #define REFRESH_CTRL 0x52
@@ -27,66 +46,72 @@
 #define CALC_CRC 0x94
 #define CONFIG_CRC 0x7E
 
-void initCapsense() {
+byte touch[2] = {0, 0};
 
-  Serial.println("\nChecking Capsense board:");
-  
-  //Wire.begin();
+#define DEBUG 1
+
+void initCapsense() {
   Wire.setClock(400000);
 
-  Wire.beginTransmission(I2C_ADDR);
-  Wire.write(SYSTEM_STATUS);
-  Wire.endTransmission();
+  if (DEBUG) {
+    ///////
+    byte infoboard = 0;
+    Wire.beginTransmission(I2C_ADDR);
+    Wire.write(SYSTEM_STATUS);
+    Wire.endTransmission();
 
-  // This should be 0 since a configuration other than the factory is loaded.
-  Wire.requestFrom(I2C_ADDR, 1);
-  Serial.print("Wire.available First: "); Serial.println(Wire.available());
+    // This should be 0 since a configuration other than the factory is loaded.
+    Wire.requestFrom(I2C_ADDR, 1);
+    Serial.print("Wire.available First: ");
+    Serial.println(Wire.available());
+    infoboard = Wire.read();
+    Serial.println("This should be 0");
+    Serial.print("SYSTEM_STATUS: ");
+    Serial.println(infoboard);
+    Wire.endTransmission();
 
-  Serial.print("SYSTEM_STATUS: ");
-  if (Wire.read() == 0) {Serial.print ("OK (");} else {Serial.print("Fail (");}
-  Serial.print(Wire.read()); Serial.println(")");
-  Wire.endTransmission();
+    ///////
+    Wire.beginTransmission(I2C_ADDR);
+    Wire.write(FAMILY_ID);
+    Wire.endTransmission();
 
-  Wire.beginTransmission(I2C_ADDR);
-  Wire.write(FAMILY_ID);
-  Wire.endTransmission();
-
-  Wire.requestFrom(I2C_ADDR, 1);
-  Serial.print("Wire.available SECOND: "); Serial.println(Wire.available());
-
-  Serial.print("FAMILY_ID: ");
-  if (Wire.read() == 154) {Serial.print("OK (");} else {Serial.print("Fail (");}
-  Serial.print(Wire.read()); Serial.println(")");
-  Wire.endTransmission();
+    Wire.requestFrom(I2C_ADDR, 1);
+    Serial.print("Wire.available SECOND: ");
+    Serial.println(Wire.available());
+    infoboard = Wire.read();
+    Serial.println("This should be 154");
+    Serial.print("FAMILY_ID: ");
+    Serial.println(infoboard);
+    Wire.endTransmission();
 
 
-  //  Wire.beginTransmission(I2C_ADDR);
-  //  Wire.write(DEVICE_ID);
-  //  Wire.endTransmission();
-  //  //delay(100);
-  //
-  //  Wire.requestFrom(I2C_ADDR,2);
-  //  Serial.print("Wire.available THIRD: ");
-  //  Serial.println(Wire.available());
-  //  while (Wire.available()) {
-  //    byte c = Wire.read();
-  //    Serial.println(c);
-  //  }
-  //delay(100);
-  //  Wire.beginTransmission(I2C_ADDR);
-  //  Wire.write(REFRESH_CTRL);
-  //  Wire.endTransmission();
-  //  //delay(100);
-  //
-  //  Wire.requestFrom(I2C_ADDR,1);
-  //  Serial.print("Wire.available sixth: ");
-  //  Serial.println(Wire.available());
-  //  infoboard = Wire.read();
-  //  Serial.print("REFRESH_CTRL VALUE: ");
-  //  Serial.println(infoboard);
-  //  Wire.endTransmission();
-  //delay(100);
-
+    //  Wire.beginTransmission(I2C_ADDR);
+    //  Wire.write(DEVICE_ID);
+    //  Wire.endTransmission();
+    //  //delay(100);
+    //
+    //  Wire.requestFrom(I2C_ADDR,2);
+    //  Serial.print("Wire.available THIRD: ");
+    //  Serial.println(Wire.available());
+    //  while (Wire.available()) {
+    //    byte c = Wire.read();
+    //    Serial.println(c);
+    //  }
+    //delay(100);
+    //  Wire.beginTransmission(I2C_ADDR);
+    //  Wire.write(REFRESH_CTRL);
+    //  Wire.endTransmission();
+    //  //delay(100);
+    //
+    //  Wire.requestFrom(I2C_ADDR,1);
+    //  Serial.print("Wire.available sixth: ");
+    //  Serial.println(Wire.available());
+    //  infoboard = Wire.read();
+    //  Serial.print("REFRESH_CTRL VALUE: ");
+    //  Serial.println(infoboard);
+    //  Wire.endTransmission();
+    //delay(100);
+  }
 
   //**********************************
   // Capsense pins configuration
@@ -154,13 +179,12 @@ void initCapsense() {
   Wire.endTransmission();
 
   Wire.requestFrom(I2C_ADDR, 2);
-  Serial.print("Wire.available FOURTH: "); Serial.print(Wire.available());
-  Serial.print(" ( ");
+  Serial.print("Wire.available FOURTH: ");
+  Serial.println(Wire.available());
   while (Wire.available()) { // slave may send less than requested
     byte c = Wire.read(); // receive a byte as character
-    Serial.print(c); Serial.print(" "); // print the character
+    Serial.println(c);         // print the character
   }
-  Serial.println(")");  
 
   /*
       WRITING SETTINGS IN CAPSENSE
@@ -191,14 +215,12 @@ void initCapsense() {
   Wire.endTransmission();
 
   Wire.requestFrom(I2C_ADDR, 2);
-  Serial.print("Testing Wire.read: "); 
   while (Wire.available()) { // slave may send less than requested
     byte c = Wire.read();
-    Serial.print(c); Serial.print(" "); // print the character
+    Serial.println(c);         // print the character
     crc[i] = c; // receive a byte as character
     i++;
   }
-  Serial.println();
   Wire.endTransmission();
 
   // Write CRC to CONFIG_CRC
@@ -225,7 +247,6 @@ void initCapsense() {
     result = Wire.read();
     Serial.print("result CTRL_CMD_STATUS 1: ");
     Serial.println(result);
- 
     if (result == 1) {
       Wire.beginTransmission(I2C_ADDR);
       Wire.write(CTRL_CMD_ERROR);
@@ -271,4 +292,117 @@ void initCapsense() {
     Wire.endTransmission();
   }
   delay(500);
+}
+
+boolean readTouch() {
+  boolean changed = 0;
+  byte temp[2] = {0, 0}; int i = 0;
+  Wire.beginTransmission(I2C_ADDR);
+  Wire.write(BUTTON_STAT);
+  Wire.endTransmission();
+
+  Wire.requestFrom(I2C_ADDR, 2);
+  while (Wire.available()) { // slave may send less than requested
+    //    byte c = Wire.read();
+    //    temp[i] = c; // receive a byte as character
+    temp[i] = Wire.read();
+    i++;
+  }
+  Wire.endTransmission();
+
+  for (int t = 0; t < 2; t++) {
+    if (temp[t] != touch[t]) {
+      changed = 1;
+      touch[t] = temp[t];
+    }
+  }
+  return changed;
+}
+
+
+
+void setupSensor()
+{
+  // 1.) Set the accelerometer range
+  lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_2G);
+  //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_4G);
+  //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_8G);
+  //lsm.setupAccel(lsm.LSM9DS1_ACCELRANGE_16G);
+
+  // 2.) Set the magnetometer sensitivity
+  lsm.setupMag(lsm.LSM9DS1_MAGGAIN_4GAUSS);
+  //lsm.setupMag(lsm.LSM9DS1_MAGGAIN_8GAUSS);
+  //lsm.setupMag(lsm.LSM9DS1_MAGGAIN_12GAUSS);
+  //lsm.setupMag(lsm.LSM9DS1_MAGGAIN_16GAUSS);
+
+  // 3.) Setup the gyroscope
+  lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_245DPS);
+  //lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_500DPS);
+  //lsm.setupGyro(lsm.LSM9DS1_GYROSCALE_2000DPS);
+}
+
+
+void setup()
+{
+  Serial.begin(115200);
+
+  while (!Serial) {
+    delay(1); // will pause Zero, Leonardo, etc until serial console opens
+  }
+
+  Serial.println("checking IMU.....\n\n");
+
+  // Try to initialise and warn if we couldn't detect the chip
+  if (!lsm.begin())
+  {
+    Serial.println("Oops ... unable to initialize the LSM9DS1. Check your wiring!");
+    IMU_OK = false;
+  }
+  else {
+    Serial.println("*******************");
+    Serial.println("Found LSM9DS1 9DOF");
+    Serial.println("*******************");
+    IMU_OK = true;
+    // helper to just set the default scaling we want, see above!
+    setupSensor();
+    delay(2000);
+  }
+
+  Serial.println("\n\n Checking Capsense....");
+  initCapsense();
+  Capsense_OK = true;
+  Serial.println("*******************");
+  Serial.println("Capsense OK");
+  Serial.println("*******************");
+}
+
+void loop()
+{
+  if (IMU_OK) {
+    lsm.read();  /* ask it to read in the data */
+
+    /* Get a new sensor event */
+    sensors_event_t a, m, g, temp;
+
+    lsm.getEvent(&a, &m, &g, &temp);
+
+    Serial.print("Accel X: "); Serial.print(a.acceleration.x); Serial.print(" m/s^2");
+    Serial.print("\tY: "); Serial.print(a.acceleration.y);     Serial.print(" m/s^2 ");
+    Serial.print("\tZ: "); Serial.print(a.acceleration.z);     Serial.println(" m/s^2 ");
+
+    Serial.println();
+  }
+
+  if (Capsense_OK) {
+    if (readTouch())
+    {
+      Serial.print("Touch bytes: 0x");
+      Serial.print(touch[0], HEX);
+      Serial.print(touch[1], HEX);
+      Serial.println();
+    }
+  }
+  delay(200);
+
+
 }
