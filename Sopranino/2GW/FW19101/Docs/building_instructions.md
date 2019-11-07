@@ -51,7 +51,20 @@ Length of holes assembly is 1.5 * 15 for 16 strips. That is 22.5cm. You need apr
 The Capsense (https://www.cypress.com/le/127221/download) breakout boards use 2 3D printed bases. It connects via a jumper cable with SH1.
 connectors to the D32 Pro (https://wiki.wemos.cc/products:d32:d32_pro).
 
-__CAUTION__: THE CAPSENSE BOARD HAS THE CONNECTORS LABELED FOR THE IMU AND MICROCONTROLLER (Black mark). BE CAREFUL WHEN CONNECTING THEM BECAUSE OF A LAST MINUTE CHANGE IN THE PINOUT OF THE BOARD. SEE SCHEMATIC BELOW.
+__CAUTION__: THE CAPSENSE BOARD HAS THE CONNECTORS LABELED FOR THE IMU AND MICROCONTROLLER (Black marker). BE CAREFUL WHEN CONNECTING THEM BECAUSE OF A LAST MINUTE CHANGE IN THE PINOUT OF THE BOARD. SEE SCHEMATIC BELOW. 
+
+The Capsense label for ground and +3V3 is inverted at the end that goes to the IMU. You should connect:
+
+__Capsense -> IMU__
+GND ------> +3V3
+SDA ------> SDA
+SCL ------> SCL
++3V3------> GND
+
+![Capsense-IMU connection](./images/IMU_connection.jpg "Capsense-IMU connection")
+
+Please take extra care since it is necessary to cut the cable and solder the right ends at the IMU.
+
 
 All the building tools can be found in the Machine Shop at the McGill Music Tech Department.
 
@@ -90,6 +103,8 @@ Non-Inverting Input A | 3   6| Inverting Input B
                       +------+
 ```
 
+OBS: Don't forget to connect GND and V+.
+
 ##### Envelope Follower Circuit
 
 ![T-Stick Sopranino - Envelope Follower Circuit](./images/envelope_follower.png "T-Stick Sopranino - Envelope Follower Circuit")
@@ -114,6 +129,10 @@ It is recommended to use the board test firmwares located at https://github.com/
 Nightly builds and beta firmwares can be downloaded at https://github.com/edumeneses/TStick. Before using them, contact the IDMIL's lab team.
 
 Notice that you have to download the latest Arduino IDE version and setup the board denition. To do that go to: https://github.com/espressif/arduino-esp32.
+
+#### 
+
+Make sure you have Pyhton, pip, and esptool.py installed. Please access https://www.python.org/, https://pip.pypa.io/en/latest/installing/#install-or-upgrade-pip, and https://github.com/espressif/esptool to get information on how to install these programs.
 
 
 ## More info:
