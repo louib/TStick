@@ -123,7 +123,8 @@ The microcontroller to be used with the T-Stick is the Lolin D32 PRO. You can ch
 
 Instructions to upload (flash) the T-Stick firmware and configuration files can be found [here](../README.md).
 
-Read and follow __ALL__ the instructions at before upload it to the board. There are some steps to prepare your machine and the ESP32 before flash it for the first time.
+Read and follow __ALL__ the instructions before uploading it to the board.
+There are some steps to prepare your machine and the ESP32 before flash it for the first time.
 
 It is recommended to use the board test firmwares located at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/19X/Tests to test the capsense board and the IMU after install them.
 
