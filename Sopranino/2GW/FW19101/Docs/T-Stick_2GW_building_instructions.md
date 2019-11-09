@@ -7,7 +7,7 @@
 
 Qty   | Type                | Description 
 ------|---------------------|-----------------------------------------------------------------------------------
-01    | sensor              | [Capsense](https://www.cypress.com/le/127221/download) breakout board (CY8CMBR3116)
+01    | sensor              | [Capsense breakout board (CY8CMBR3116)](https://www.cypress.com/le/127221/download)
 01    | sensor              | [IMU breakout board LSM9DS](https://www.sparkfun.com/products/13284)
 01    | sensor              | [FSR 408](https://www.robotshop.com/ca/en/interlink-24-long-fsr.html)
 01    | sensor              | [buzz elem. piezo STD](https://www.digikey.ca/product-detail/en/cui-inc/CEB-20D64/102-1126-ND/412385)
@@ -20,7 +20,7 @@ Qty   | Type                | Description
 01    | electronics         | [10K potentiometer](https://www.digikey.com/products/en?mpart=PV36W103C01B00&v=118)
 01    | electronics         | [LM358P Opamp](https://www.digikey.ca/products/en?keywords=296-1395-5-ND)
 01    | electronics         | [button](https://www.digikey.ca/product-detail/en/c-k/PTS125SM43-2-LFS/CKN9100-ND/1146743)
-02    | electronics         | [SH1.0 cables](https://www.aliexpress.com/item/32877217306.html)
+02    | electronics         | [SH1.0mm cables](https://www.aliexpress.com/item/32877217306.html)
 02    | electronics         | [Breadboards](https://www.digikey.ca/product-detail/en/sparkfun-electronics/PRT-08808/1568-1652-ND/7387401)
 30cm  | manufacturing parts | PVC Tube split in 2 lenghtwise
 ~85cm | manufacturing parts | Copper adhesive tape
@@ -49,8 +49,8 @@ This schematic is outdated. Use for FSR and Piezo Electronics reference only.
 Cut the PVC in half as in the picture and tape the conductive tape 1.5cm apart. 
 Length of holes assembly is 1.5 * 15 for 16 strips. That is 22.5cm. You need aprox. 8 cm of copper tape per strip.
 
-The Capsense (https://www.cypress.com/le/127221/download) breakout boards use 2 3D printed bases. It connects via a jumper cable with SH1.
-connectors to the D32 Pro (https://wiki.wemos.cc/products:d32:d32_pro).
+The Capsense (https://www.cypress.com/le/127221/download) breakout boards use 2 3D printed bases.
+It connects via a jumper cable with SH1.0mm connectors to the D32 Pro (https://wiki.wemos.cc/products:d32:d32_pro).
 
 __CAUTION__: THE CAPSENSE BOARD HAS THE CONNECTORS LABELED FOR THE IMU AND MICROCONTROLLER (Black marker). BE CAREFUL WHEN CONNECTING THEM BECAUSE OF A LAST MINUTE CHANGE IN THE PINOUT OF THE BOARD. SEE SCHEMATIC BELOW. 
 
@@ -69,10 +69,10 @@ Please take extra care since it is necessary to cut the cable and solder the rig
 
 All the building tools can be found in the Machine Shop at the McGill Music Tech Department.
 
-
 #### IMU:
 
-The [LSM9DS1](https://www.sparkfun.com/products/13284) IMU connects via another SH1.0 cable to the other socket on the Capsense for I2C communication. One end has the SH housing the other is open to solder onto the IMU breakout board. There are also 2 3D printed bases to attach the IMU to the frame.
+The [LSM9DS1](https://www.sparkfun.com/products/13284) IMU connects via another SH1.0mm cable to the other socket on the Capsense for I2C communication.
+One end has the SH housing the other is open to solder onto the IMU breakout board. There are also 2 3D printed bases to attach the IMU to the frame.
 
 ![T-Stick Sopranino IMU parts](./images/SopraninoIMUparts.jpg "T-Stick Sopranino IMU parts")
 
