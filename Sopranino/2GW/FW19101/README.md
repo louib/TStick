@@ -1,39 +1,32 @@
+
+---
+
+<font size="2">
+Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi
+
+Input Devices and Music Interaction Laboratory (IDMIL)  
+Created: February 2018 by Alex Nieva  
+October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)  
+Notes: Based on test program for reading CY8C201xx using I2C by Joseph Malloch 2011  
+Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW  
+
+WiFi32Manager - For use with ESP8266 or ESP32  
+Created originally for the T-Stick project:  
+http://www-new.idmil.org/project/the-t-stick/  
+This code uses code (fork) of 3 other projects:  
+https://github.com/kentaylor/WiFiManager    
+https://github.com/tzapu/WiFiManager  
+https://github.com/zhouhan0126/WIFIMANAGER-ESP32    
+Edu Meneses - IDMIL - Mar 2019    
+
+MIMU - Magnetometer + accelerometer + gyroscope orientation library  
+https://github.com/DocSunset/MIMU  
+Travis West - IDMIL - Oct 2019  
+</font>
+
+---
+
 # T-Stick 2GW (Firmware version: 19101)
-
-|--------------------------------------------------------------------------------| \s\s
-|  Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi                             | \s\s
-|  Input Devices and Music Interaction Laboratory (IDMIL)                        | \s\s
-|  Created:  February 2018 by Alex Nieva                                         | \s\s
-|            October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)   | \s\s
-|  Notes   : Based on test program for reading CY8C201xx using I2C               | \s\s
-|            by Joseph Malloch 2011                                              | \s\s
-|                                                                                | \s\s
-|            Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW   | \s\s
-|--------------------------------------------------------------------------------| \s\s
-
-|--------------------------------------------------| \s\s
-| WiFi32Manager - For use with ESP8266 or ESP32    | \s\s
-|                                                  | \s\s
-| Created originally for the T-Stick project:      | \s\s
-| http://www-new.idmil.org/project/the-t-stick/    | \s\s
-|                                                  | \s\s
-| This code uses code (fork) of 3 other projects:  | \s\s
-| https://github.com/kentaylor/WiFiManager         | \s\s
-| https://github.com/tzapu/WiFiManager             | \s\s
-| https://github.com/zhouhan0126/WIFIMANAGER-ESP32 | \s\s
-|                                                  | \s\s
-| Edu Meneses - IDMIL - Mar 2019                   | \s\s
-|--------------------------------------------------| \s\s
-
-|--------------------------------------------------| \s\s
-| MIMU - Magnetometer + accelerometer + gyroscope  | \s\s
-| orientation library                              | \s\s
-|                                                  | \s\s
-| https://github.com/DocSunset/MIMU                | \s\s
-|                                                  | \s\s
-|                                                  | \s\s
-| Travis West - IDMIL - Oct 2019                   | \s\s
-|--------------------------------------------------| \s\s
 
 ## Firmware upload instructions:
 
