@@ -1,40 +1,18 @@
-
----
-
-<font size="2">
-Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi
-
-Input Devices and Music Interaction Laboratory (IDMIL)  
-Created: February 2018 by Alex Nieva  
-October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)  
-Notes: Based on test program for reading CY8C201xx using I2C by Joseph Malloch 2011  
-Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW  
-
-WiFi32Manager - For use with ESP8266 or ESP32  
-Created originally for the T-Stick project:  
-http://www-new.idmil.org/project/the-t-stick/  
-This code uses code (fork) of 3 other projects:  
-https://github.com/kentaylor/WiFiManager    
-https://github.com/tzapu/WiFiManager  
-https://github.com/zhouhan0126/WIFIMANAGER-ESP32    
-Edu Meneses - IDMIL - Mar 2019    
-
-MIMU - Magnetometer + accelerometer + gyroscope orientation library  
-https://github.com/DocSunset/MIMU  
-Travis West - IDMIL - Oct 2019  
-</font>
-
----
-
 # T-Stick 2GW (Firmware version: 19101)
 
-## Firmware upload instructions:
+1. [Firmware upload instructions](#Firmwareuploadinstructions:)
+	* 1.1. [Option 1: using .bin files and esptool.py](#Option1:using.binfilesandesptool.py)
+	* 1.2. [Option 2: Using Arduino IDE](#Option2:UsingArduinoIDE)
+2. [Other Documentation](#OtherDocumentation:)
+3. [Firmware information](#Firmwareinformation:)
 
-#### Option 1: using .bin files and esptool.py
+##  1. <a name='Firmwareuploadinstructions:'></a>Firmware upload instructions:
+
+####  1.1. <a name='Option1:using.binfilesandesptool.py'></a>Option 1: using .bin files and esptool.py
 
 TODO
 
-#### Option 2: Using Arduino IDE
+####  1.2. <a name='Option2:UsingArduinoIDE'></a>Option 2: Using Arduino IDE
 
 _READ ALL DEPENDENCIES AND OBSERVATIONS BEFORE UPLOAD !_
 
@@ -103,8 +81,31 @@ To test if the data is being send correctly:
 - Open the Pure Data (PD) or Max/MSP patch to receive T-Stick messages (they can be found [here](./Configuration))
 - Start receive OSC messages according to the chosen patch
 
-## Other Documentation:
+##  2. <a name='OtherDocumentation:'></a>Other Documentation:
 
 [T-Stick connection guide – v1.1 for wireless T-Sticks](./Docs/T-Stick_2GW_Connecting_Guide(v1.1).md) (model 2GW-19X)
 
 [How to build a T-Stick Sopranino](./Docs/T-Stick_2GW_building_instructions.md)
+
+
+##  3. <a name='Firmwareinformation:'></a>Firmware information:
+
+Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi  
+Input Devices and Music Interaction Laboratory (IDMIL)  
+Created: February 2018 by Alex Nieva  
+October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)  
+Notes: Based on test program for reading CY8C201xx using I2C by Joseph Malloch 2011  
+Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW  
+
+WiFi32Manager - For use with ESP8266 or ESP32  
+Created originally for the T-Stick project:  
+http://www-new.idmil.org/project/the-t-stick/  
+This code uses code (fork) of 3 other projects:  
+https://github.com/kentaylor/WiFiManager    
+https://github.com/tzapu/WiFiManager  
+https://github.com/zhouhan0126/WIFIMANAGER-ESP32    
+Edu Meneses - IDMIL - Mar 2019    
+
+MIMU - Magnetometer + accelerometer + gyroscope orientation library  
+https://github.com/DocSunset/MIMU  
+Travis West - IDMIL - Oct 2019  
