@@ -120,19 +120,13 @@ The microcontroller to be used with the T-Stick is the Lolin D32 PRO. You can ch
 
 #### Firmware:
 
-The official T-Stick repository is located at https://github.com/IDMIL/TStick. Second generation (wireless) sopranino T-Stick firmwares can be found at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/19X. 
+Instructions to upload (flash) the T-Stick firmware and configuration files can be found [here](../README.md)
 
-Read and follow __ALL__ the instructions at the firmware main file before upload it to the board. There are some steps to prepare your machine and the ESP32 before flash it for the first time.
+Read and follow __ALL__ the instructions at before upload it to the board. There are some steps to prepare your machine and the ESP32 before flash it for the first time.
 
 It is recommended to use the board test firmwares located at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/19X/Tests to test the capsense board and the IMU after install them.
 
 Nightly builds and beta firmwares can be downloaded at https://github.com/edumeneses/TStick. Before using them, contact the IDMIL's lab team.
-
-Notice that you have to download the latest Arduino IDE version and setup the board denition. To do that go to: https://github.com/espressif/arduino-esp32.
-
-#### 
-
-Make sure you have Pyhton, pip, and esptool.py installed. Please access https://www.python.org/, https://pip.pypa.io/en/latest/installing/#install-or-upgrade-pip, and https://github.com/espressif/esptool to get information on how to install these programs.
 
 
 ## More info:
