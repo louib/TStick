@@ -1,39 +1,39 @@
 # T-Stick 2GW (Firmware version: 19101)
 
-|--------------------------------------------------------------------------------|
-|  Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi                             |
-|  Input Devices and Music Interaction Laboratory (IDMIL)                        |
-|  Created:  February 2018 by Alex Nieva                                         |
-|            October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)   |
-|  Notes   : Based on test program for reading CY8C201xx using I2C               |
-|            by Joseph Malloch 2011                                              |
-|                                                                                |
-|            Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW   |
-|--------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------| \s\s
+|  Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi                             | \s\s
+|  Input Devices and Music Interaction Laboratory (IDMIL)                        | \s\s
+|  Created:  February 2018 by Alex Nieva                                         | \s\s
+|            October 2019 by Edu Meneses - firmware version 19101 (2019-10.v1)   | \s\s
+|  Notes   : Based on test program for reading CY8C201xx using I2C               | \s\s
+|            by Joseph Malloch 2011                                              | \s\s
+|                                                                                | \s\s
+|            Adapted to work with Arduino IDE 1.8.10 and T-Stick Sopranino 2GW   | \s\s
+|--------------------------------------------------------------------------------| \s\s
 
-|--------------------------------------------------|
-| WiFi32Manager - For use with ESP8266 or ESP32    |
-|                                                  |
-| Created originally for the T-Stick project:      |
-| http://www-new.idmil.org/project/the-t-stick/    |
-|                                                  |
-| This code uses code (fork) of 3 other projects:  |
-| https://github.com/kentaylor/WiFiManager         |
-| https://github.com/tzapu/WiFiManager             |
-| https://github.com/zhouhan0126/WIFIMANAGER-ESP32 |
-|                                                  |
-| Edu Meneses - IDMIL - Mar 2019                   |
-|--------------------------------------------------|
+|--------------------------------------------------| \s\s
+| WiFi32Manager - For use with ESP8266 or ESP32    | \s\s
+|                                                  | \s\s
+| Created originally for the T-Stick project:      | \s\s
+| http://www-new.idmil.org/project/the-t-stick/    | \s\s
+|                                                  | \s\s
+| This code uses code (fork) of 3 other projects:  | \s\s
+| https://github.com/kentaylor/WiFiManager         | \s\s
+| https://github.com/tzapu/WiFiManager             | \s\s
+| https://github.com/zhouhan0126/WIFIMANAGER-ESP32 | \s\s
+|                                                  | \s\s
+| Edu Meneses - IDMIL - Mar 2019                   | \s\s
+|--------------------------------------------------| \s\s
 
-|--------------------------------------------------|
-| MIMU - Magnetometer + accelerometer + gyroscope  |
-| orientation library                              |
-|                                                  |
-| https://github.com/DocSunset/MIMU                |
-|                                                  |
-|                                                  |
-| Travis West - IDMIL - Oct 2019                   |
-|--------------------------------------------------|
+|--------------------------------------------------| \s\s
+| MIMU - Magnetometer + accelerometer + gyroscope  | \s\s
+| orientation library                              | \s\s
+|                                                  | \s\s
+| https://github.com/DocSunset/MIMU                | \s\s
+|                                                  | \s\s
+|                                                  | \s\s
+| Travis West - IDMIL - Oct 2019                   | \s\s
+|--------------------------------------------------| \s\s
 
 ## Firmware upload instructions:
 
@@ -45,16 +45,16 @@ TODO
 
 _READ ALL DEPENDENCIES AND OBSERVATIONS BEFORE UPLOAD !_
 
-###### Install Arduino IDE:
+##### Install Arduino IDE:
 
 To download and install Arduino IDE, follow the instructions at https://www.arduino.cc/en/main/software.
 
-###### Install Arduino ESP32 filesystem uploader: 
+##### Install Arduino ESP32 filesystem uploader: 
 
 You need to upload a file (data/config.json) into ESP32 filesystem. 
 Follow the instructions at https://github.com/me-no-dev/arduino-esp32fs-plugin
 
-###### Install all depencencies:
+##### Install all depencencies:
 
 1. ESP32 Arduino core 1.0.4 or newer. Instructons at https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md. Install using [boards manager](https://www.arduino.cc/en/guide/cores).
 2. For some systems it may be required to also install the ESP8266 Arduino core. Instructons at https://github.com/esp8266/Arduino. Install using [boards manager](https://www.arduino.cc/en/guide/cores).
@@ -70,7 +70,7 @@ Observations:
 1. MINU library complains if you keep any IMU-related files other than MIMU_LSM9DS1.h and MIMU_LSM9DS1.cpp
 2. Microcontroller currently in use for T-Stick 2GW: [Wemos LOLIN D32 PRO](https://wiki.wemos.cc/products:d32:d32_pro).
 
-###### Create your custom config.json file:
+##### Create your custom config.json file:
 
 Each T-Stick uses a _config.json_ file to store all configuration paramethers. The template file can be found [here](./datafiles/config(template).json).
 
@@ -82,7 +82,7 @@ Each T-Stick uses a _config.json_ file to store all configuration paramethers. T
   - id: replace _190_ with your T-Stick serial number
 - Save the file and place it at _data_ folder (inside _esp32_arduino_19X_19101_). Make sure _config.json_ is the only file at _data_ folder
 
-###### Upload (flash) the firmware and config.json into the T-Stick:
+##### Upload (flash) the firmware and config.json into the T-Stick:
 
 - Open the file `esp32_arduino_19X_19101.ino` using Arduino IDE
 - Choose the proper _board_: `Tools -> Board: "*******" -> LOLIN D32 PRO`
@@ -95,7 +95,7 @@ Each T-Stick uses a _config.json_ file to store all configuration paramethers. T
 - Upload the firmware: `Sketch -> Upload`. Do not disconnect or turn the T-Stick off during the upload process
 - Upload _config.json_: `Tools -> ESP32 Sketch Data Upload`. Do not disconnect or turn the T-Stick off during the upload process
 
-###### Test T-Stick:
+##### Test T-Stick:
 
 To test your T-Stick after flashing firmware/config.json, you can use Arduino IDE:
 
