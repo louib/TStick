@@ -1,7 +1,7 @@
 # T-Stick 2GW (Firmware version: 19101)
 
 1. [Firmware upload instructions](#firmware-upload-instructions)
-	* [Option 1: using .bin files and esptool.py](#option-1-using-.bin-files-and-esptool.py)
+	* [Option 1: using .bin files and esptool.py](#option-1-using-bin-files-and-esptoolpy)
 	* [Option 2: Using Arduino IDE](#option-2-using-arduino-ide)
 2. [Other Documentation](#other-documentation)
 3. [Firmware information](#firmware-information)
