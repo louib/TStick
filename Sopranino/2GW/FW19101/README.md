@@ -1,18 +1,18 @@
 # T-Stick 2GW (Firmware version: 19101)
 
-1. [Firmware upload instructions](#Firmwareuploadinstructions:)
-	* 1.1. [Option 1: using .bin files and esptool.py](#Option1:using.binfilesandesptool.py)
-	* 1.2. [Option 2: Using Arduino IDE](#Option2:UsingArduinoIDE)
-2. [Other Documentation](#OtherDocumentation:)
-3. [Firmware information](#Firmwareinformation:)
+1. [Firmware upload instructions](#Firmware-upload-instructions:)
+	* [Option 1: using .bin files and esptool.py](#Option-1:-using-.bin-files-and-esptool.py)
+	* [Option 2: Using Arduino IDE](#Option-2:-Using-Arduino-IDE)
+2. [Other Documentation](#Other-Documentation:)
+3. [Firmware information](#Firmware-information:)
 
-##  1. <a name='Firmwareuploadinstructions:'></a>Firmware upload instructions:
+##  Firmware upload instructions:
 
-####  1.1. <a name='Option1:using.binfilesandesptool.py'></a>Option 1: using .bin files and esptool.py
+####  Option 1: using .bin files and esptool.py
 
 TODO
 
-####  1.2. <a name='Option2:UsingArduinoIDE'></a>Option 2: Using Arduino IDE
+####  Option 2: Using Arduino IDE
 
 _READ ALL DEPENDENCIES AND OBSERVATIONS BEFORE UPLOAD !_
 
@@ -81,14 +81,14 @@ To test if the data is being send correctly:
 - Open the Pure Data (PD) or Max/MSP patch to receive T-Stick messages (they can be found [here](./Configuration))
 - Start receive OSC messages according to the chosen patch
 
-##  2. <a name='OtherDocumentation:'></a>Other Documentation:
+##  Other Documentation:
 
 [T-Stick connection guide – v1.1 for wireless T-Sticks](./Docs/T-Stick_2GW_Connecting_Guide(v1.1).md) (model 2GW-19X)
 
 [How to build a T-Stick Sopranino](./Docs/T-Stick_2GW_building_instructions.md)
 
 
-##  3. <a name='Firmwareinformation:'></a>Firmware information:
+##  Firmware information:
 
 Sopranino T-Stick 2GW - LOLIN D32 PRO - USB -WiFi  
 Input Devices and Music Interaction Laboratory (IDMIL)  
