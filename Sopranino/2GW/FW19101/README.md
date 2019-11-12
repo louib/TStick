@@ -32,7 +32,7 @@ This method is easier/faster. It uses [esptool.py](https://github.com/espressif/
 
 ##### Flash the firmware (.bin files):
 
-- Use _Finder_ or _Terminal_ to copy the contents of the [bin](../bin/) folder (you should copy 5 .bin files) to the _esptool-master_ folder.
+- Use _Finder_ or _Terminal_ to copy the contents of the [bin](./bin/) folder (you should copy 5 .bin files) to the _esptool-master_ folder.
 - Navigate to the _esptool-master_ folder in _Terminal_.
 - Run the command (__don't forget to replace the --port (/dev/cu.wchusbserial1410) option for your T-Stick port__): `esptool.py --chip esp32 --port /dev/cu.wchusbserial1410 --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 80m --flash_size detect 0xe000 boot_app0.bin 0x1000 bootloader_dio_80m.bin 0x10000 esp32_arduino_19X_19101.ino.bin 0x8000 esp32_arduino_19X_19101.ino.partitions.bin 2686976 esp32_arduino_19X_19101.spiffs.bin`. Wait for the process to be complete. Do not unplug or turn off your T-Stick during the process.
 - Your T-Stick will have default information. You need to connect with the instrument (see the [T-Stick Connecting Guide](./Docs/T-Stick_2GW_Connecting_Guide(v1.1).md)) and change all basic information (device name, author, nickname, and id).
@@ -74,15 +74,14 @@ Observations:
 
 ##### Create your custom config.json file:
 
-Each T-Stick uses a _config.json_ file to store all configuration paramethers. The template file can be found [here](./datafiles/config(template).json).
+Each T-Stick uses a _config.json_ file to store all configuration paramethers.
 
-- Make a copy of [_config(template).json_](./datafiles/config(template).json) and rename it to _config.json_;
-- Make the necessary changes to the file:
-  - device: replace _color_ with the shrinking material color, and _19X_ with T-stick's serial number
-  - author: replace _IDMIL_ with the builder's name (or alias) 
-  - nickname: replace _color_ with the shrinking material color
-  - id: replace _190_ with your T-Stick serial number
-- Save the file and place it at _data_ folder (inside _esp32_arduino_19X_19101_). Make sure _config.json_ is the only file at _data_ folder
+- Make the necessary changes to the [_config.json_](./esp32_arduino_19X_19101/data/config.json) file:
+  - device: replace _color_ with the shrinking material color, and _19X_ with T-stick's serial number.
+  - author: replace _IDMIL_ with the builder's name (or alias).
+  - nickname: replace _color_ with the shrinking material color.
+  - id: replace _190_ with your T-Stick serial number.
+- Save the file at the _data_ folder (inside _esp32_arduino_19X_19101_). Make sure _config.json_ is the only file at _data_ folder.
 
 ##### Upload (flash) the firmware and config.json into the T-Stick:
 
