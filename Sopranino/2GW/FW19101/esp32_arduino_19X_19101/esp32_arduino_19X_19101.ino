@@ -48,18 +48,18 @@
 // Wifi32Manager https://github.com/edumeneses/WiFi32Manager
 // Adafruit_LSM9DS1 (library manager)
 // ArduinoJSON - https://github.com/bblanchon/ArduinoJson
-// OSC - https://github.com/CNMAT/OSC (library manager)
+// OSC - https://github.com/CNMAT/OSC (v3.5.7)
 // MIMU - https://github.com/DocSunset/MIMU
 // Eigen - https://github.com/bolderflight/Eigen
 
 //  OBS:
 //  1-) Use esp32 1.0.4 or newer (https://github.com/espressif/arduino-esp32/releases).
 //  2-) Also install ESP8266 board library even if you'll use the ESP32 (https://github.com/esp8266/Arduino)
-//  3-) MUMI library complains if you keep any IMU-related files other than MIMU_LSM9DS1.h and MIMU_LSM9DS1.cpp
+//  3-) MINU library complains if you keep any IMU-related files other than MIMU_LSM9DS1.h and MIMU_LSM9DS1.cpp
 //  4-) Board currently in use: LOLIN D32 PRO.
 
 
-#include <FS.h>  // this needs to be first, or it all crashes and burns...
+#include <FS.h>
 
 #define ESP32; // define ESP8266 or ESP32 according to your microcontroller.
 //#define ESP8266;
@@ -68,10 +68,7 @@
 #include "SPIFFS.h"
 #endif
 
-/* You only need to format SPIFFS the first time you run a
-   test or else use the SPIFFS plugin to create a partition
-   https://github.com/me-no-dev/arduino-esp32fs-plugin */
-//#define FORMAT_SPIFFS_IF_FAILED true
+#include <ArduinoJson.h>  // https://github.com/bblanchon/ArduinoJson
 
 #include <WiFi32Manager.h> // https://github.com/edumeneses/WiFi32Manager
 // already includes:
@@ -81,17 +78,13 @@
 // AND
 // DNSServer.h
 
-#include <ArduinoJson.h>  // https://github.com/bblanchon/ArduinoJson
-
-#include <Wire.h>
+// https://github.com/CNMAT/OSC (v3.5.7)
 #include <WiFiUdp.h>
-
-// https://github.com/CNMAT/OSC
 #include <OSCMessage.h>
 #include <OSCBundle.h>
 
+#include <Wire.h>
 #include <SPI.h>
-
 #include <MIMU_LSM9DS1.h> // https://github.com/DocSunset/MIMU
                           // requires SparkFunLSM9DS1 library - https://github.com/sparkfun/SparkFun_LSM9DS1_Arduino_Library
 #include <MIMUCalibrator.h>
@@ -110,47 +103,84 @@ struct Tstick {
   char nickname[10];
   char APpasswd[15];
   char lastConnectedNetwork[30];
+  char lastStoredPsk[30];
   int id;
   int32_t firmware;
   char oscIP[17];
   int32_t oscPORT;
-  byte directSend;
   byte FSRcalibration;
-  int FSRcalibrationValues[2];
+  int32_t FSRcalibrationValues[2];
   byte touchMask[2];
-  double abias[3];
-  double mbias[3];
-  double gbias[3];
-  double acclcalibration[9];
-  double magncalibration[9];
-  double gyrocalibration[9];
+  float abias[3];
+  float mbias[3];
+  float gbias[3];
+  float acclcalibration[9];
+  float magncalibration[9];
+  float gyrocalibration[9];
 };
 
 Tstick Tstick;
 
-// Debug & calibration definitions
-#define DEBUG true
-#define CALIB false
+struct DataStruct {
+  byte touch[2];
+  unsigned int fsr;
+  int piezo;
+  float accl[3];
+  float gyro[3];
+  float gyro_map[3];
+  float magn[3];
+  float raw[9];
+  float quat[4];
+  float ypr[3];
+};
 
+DataStruct Data = {{0,0},0,0,{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0},{0,0,0}};
+
+IPAddress osc_IP; // used to send OSC messages
+char APpasswdTemp[15]; // used to check before save new T-Stick passwd
+char APpasswdValidate[15]; // used to check before save new T-Stick passwd
 
 //////////////////////
 // WiFi Definitions //
 //////////////////////
 
-//define your default values here, if there are different values in config.json, they are overwritten.
-IPAddress oscEndpointIP(192, 168, 1, 1); // remote IP of your computer
-unsigned int oscEndpointPORT = 8000; // remote port to receive OSC
-int timeout1 = 5000; bool timeout1check = false;
-WiFiUDP oscEndpoint;            // A UDP instance to let us send and receive packets over UDP
-const unsigned int portLocal = 8888;       // local port to listen for OSC packets (actually not used for sending)
-bool udpConnected = false;
-bool sendOSC = true;
-static int bufferFromHost[4] = {0, 0, 0, 0};
-int interTouch[2];
-char zero[3] = "0";
-char one[3] = "1";
-char stored_psk[20];
+WiFiUDP oscEndpoint; // A UDP instance to let us send and receive packets over UDP
+const unsigned int portLocal = 8888; // local port to listen for OSC packets (not used for sending)
 
+//////////////
+// defaults //
+//////////////
+
+int piezoPin = 32;
+int fsrPin = 33;
+const int buttonPin = 15;
+int buttonState = 0; // variable for reading the pushbutton status
+int waitForConnection = 8000; // set waiting time for connecting to a WiFi network
+byte touchInterval = 15; // interval between capsense readings
+unsigned long touchLastRead = 0; // track capsense last sensor read
+int serialInterval = 1000; // interval between serial prints for sensor data
+unsigned long serialLastRead = 0; // track capsense last sensor read
+unsigned long time_now = millis(); // variable used for LED, serial print, and WiFi connection 
+                                   // (updated by blinkLED() every loop)
+char wifimanagerbuf[12];
+
+///////////////
+// blink LED //
+///////////////
+
+int ledPin = 5;
+bool ledStatus = false;
+int long_blink = 1000;
+int short_blink = 500;
+int flickering = 150;
+
+void blinkLED(int ledInterval) {
+  if (millis() > time_now + ledInterval) {
+    time_now = millis();
+    ledStatus = !ledStatus;
+    digitalWrite(ledPin, ledStatus);
+    } 
+}
 
 ///////////////////////
 // MIMU Library Init //
@@ -161,62 +191,15 @@ MIMUCalibrator calibrator{};
 MIMUFusionFilter filter{};
 
 
-////////////////////////////
-// Sketch Output Settings //
-////////////////////////////
-
-#define PRINT_CALCULATED
-//#define PRINT_RAW
-#define PRINT_SPEED 20 // 250 ms between prints
-static unsigned long lastPrint = 0; // Keep track of print time
-
-
-//////////////
-// defaults //
-//////////////
-
-int piezoPin = 32;
-int pressurePin = 33;
-int ledPin = 5; //changed for The thing dev during testing
-int ledStatus = 0;
-int ledTimer = 1000;
-byte touch[2] = {0, 0};
-unsigned int pressure = 0;
-const int buttonPin = 15;
-
-
-////////////////////////
-//control definitions //
-////////////////////////
-
-unsigned long then = 0;
-unsigned long now = 0;
-unsigned long started = 0;
-unsigned long lastRead = 0;
-byte interval = 10;
-byte touchInterval = 15;
-unsigned long lastReadSensors = 0;
-int buttonState = 0; // variable for reading the pushbutton status
-
+///////////
+///////////
+// setup //
+///////////
+///////////
 
 void setup() {
 
-  
-  //wifiManager.setDebugOutput(true);
-
   Serial.begin(115200);
-  if (DEBUG == true) {
-    Serial.println("\n Starting");
-  }
-
-  // Converting T-Stick info into char (str)
-//  itoa(Tstick.id, infoTstickCHAR0, 10);
-//  itoa(Tstick.firmware, infoTstickCHAR1, 10);
-//  strcat(device, nickname);
-//  strcat(device, "_");
-//  strcat(device, infoTstickCHAR0);
-//  memcpy(APpasswdValidate, APpasswd, 15);
-//  memcpy(APpasswdTemp, APpasswd, 15);
 
   Serial.println("\n");
   Serial.println("*******************************************************************************");
@@ -231,9 +214,28 @@ void setup() {
   Serial.println("*******************************************************************************");
   Serial.println("\n");
 
+  Serial.println("Setting up T-Stick...\n");
+
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  ledStatus = true;
+  digitalWrite(ledPin, ledStatus);
+
+  // Start FS and check Json file (config.json)
+  mountFS();
+
+  // Print Json file stored values
+  printJSON();
   
-  // Starting WiFiManager in Trigger Mode
-  Wifimanager_init(DEBUG);
+  // Load Json file stored values
+  parseJSON();
+
+  // Print T-Stick Specific Definitions
+  printVariables();
+
+  // Connect to saved WiFi
+  connectToWifi();
 
   // Starting IMU
   initIMU();
@@ -241,52 +243,43 @@ void setup() {
   // Starting Capsense
   initCapsense();
 
-  pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
-
-  delay(100);
-
-  if (DEBUG == true) {
-    Serial.println("Setup complete.");
-  }
-
-  #if defined(ESP32) 
-    if (WiFi.status() != WL_CONNECTED) {
-      if (DEBUG == true) {Serial.println("ESP32 3rd attempt to connect");}
-      WiFi.begin(Tstick.lastConnectedNetwork, stored_psk);
-      if (DEBUG == true) {
-        if (WiFi.status() != WL_CONNECTED) {Serial.println("Connected on 3rd attempt");saveLastConnectedNetwork();}
-        else {Serial.println("Failed to connect, finishing setup anyway");}
-      }
-    }
-  #endif
+  Serial.println("\nT-Stick setup complete.\n");
   
 }
 
+
+//////////
+//////////
+// loop //
+//////////
+//////////
+
 void loop() {
 
-  
   // Calling WiFiManager configuration portal on demand:
   buttonState = digitalRead(buttonPin);
   if ( buttonState == LOW ) {
-    digitalWrite(ledPin, HIGH);
-    Wifimanager_portal(Tstick.device, Tstick.APpasswd, DEBUG);
-  }
+    digitalWrite(ledPin, 0);
+    Wifimanager_portal(Tstick.device, Tstick.APpasswd);
+    }
 
-  // Receiving OSC messages:
-  TStickReceiveRoutine();
+  // reading sensor data
+  readData();
 
-  now = millis();
+  // send data (OSC)
+  sendOSC();
 
-  // Sending OSC messages:
-  if (Tstick.directSend == 0) { // needs a ping/keep-alive every 2 seconds or less or will time-out
-    if (now < started + 2000) {TStickRoutine();}
-    else { 
-      now = millis();
-      if ((now - then) > ledTimer) {ledBlink(); then = now;}
-      else if ( then > now) {then = 0;}
-      }
-    } 
-  else { TStickRoutine();} // Direct OSC mode
+  // receiving OSC
+  receiveOSC();
 
-} // END LOOP
+  // printing sensor data (serial port)
+  //printData();
+
+  // LED modes:
+  // ON = Setup mode
+  // long blink = not connected to network
+  // short blink = connected and sending data
+  // flickering =  receiving OSC
+  if ( WiFi.status() == WL_CONNECTED ) {blinkLED(flickering);}
+  else {blinkLED(short_blink);}
+}

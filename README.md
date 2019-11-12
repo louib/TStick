@@ -6,10 +6,9 @@ This repository hosts up to date firmware for the instruments currently  at the 
 
 ## Documentation:
 
-[T-Stick connection guide – v1.1 for wireless T-Sticks](./Sopranino/2GW/FW19101/Docs/T-Stick_Connecting_Guide(v1.1).md) (model 2GW-19X)
+[T-Stick connection guide – v1.1 for wireless T-Sticks](./Sopranino/2GW/FW19101/Docs/T-Stick_2GW_Connecting_Guide(v1.1).md) (model [2GW-19X](./Sopranino/2GW/FW19101/README.md))
 
-[How to build a T-Stick Sopranino](./Sopranino/2GW/FW19101/Docs/building_instructions.md)
-
+[How to build a T-Stick Sopranino](./Sopranino/2GW/FW19101/Docs/T-Stick_2GW_building_instructions.md)
 
 ## Instruments:
 
