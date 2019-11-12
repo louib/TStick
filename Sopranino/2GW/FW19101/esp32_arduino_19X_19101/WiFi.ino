@@ -58,8 +58,8 @@ void Wifimanager_portal(char *portal_name, char *portal_password) {
   WiFiManagerParameter wifimanager_FSRcalibrationValue1("cal1", "FSR max calibration value (default = 4095)", itoa(Tstick.FSRcalibrationValues[1],wifimanagerbuf,10), 6);
   WiFiManagerParameter wifimanager_touchMask0("touchMask0", "Touch Mask capacitive sensing value (1/2)", itoa(Tstick.touchMask[0],wifimanagerbuf,10), 7);
   WiFiManagerParameter wifimanager_touchMask1("touchMask1", "Touch Mask capacitive sensing value (2/2)", itoa(Tstick.touchMask[1],wifimanagerbuf,10), 7);
-  WiFiManagerParameter wifimanager_id("id", "T-Stick serial number", itoa(Tstick.id,wifimanagerbuf,10), 6, " readonly");
-  WiFiManagerParameter wifimanager_firmware("firmware", "T-Stick firmware revision", itoa(Tstick.firmware,wifimanagerbuf,10), 6, " readonly");
+  WiFiManagerParameter wifimanager_id("id", "T-Stick serial number", itoa(Tstick.id,wifimanagerbuf,10), 6);
+  WiFiManagerParameter wifimanager_firmware("firmware", "T-Stick firmware revision", itoa(Tstick.firmware,wifimanagerbuf,10), 6);
 
   //add all your parameters here
   wifiManager.addParameter(&wifimanager_device);

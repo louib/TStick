@@ -14,7 +14,7 @@ Qty   | Type                | Description
 01    | electronics         | [microcontroller Lolin D32 Pro](https://wiki.wemos.cc/products:d32:d32_pro)
 01    | electronics         | [0.1uF capacitor](https://www.digikey.ca/product-detail/en/kemet/C320C104J5R5TA7301/399-9867-1-ND/3726105)
 01    | electronics         | 1K resistor
-02    | electronics         | [10K resistors](https://www.digikey.ca/product-detail/en/CFM12JT10K0/S10KHCT-ND/2617547/?itemSeq=307630589)
+01    | electronics         | [10K resistor](https://www.digikey.ca/product-detail/en/CFM12JT10K0/S10KHCT-ND/2617547/?itemSeq=307630589)
 01    | electronics         | [2M resistor](https://www.digikey.ca/product-detail/en/CFM12JT2M00/S2MHCT-ND/2617413/?itemSeq=307631009)
 01    | electronics         | [Diode 1N4004](https://www.digikey.ca/product-detail/en/1N4004-TP/1N4004-TPMSCT-ND/773691/?itemSeq=307634719)
 01    | electronics         | [10K potentiometer](https://www.digikey.com/products/en?mpart=PV36W103C01B00&v=118)
@@ -40,6 +40,7 @@ Qty   | Type                | Description
 
 ![T-Stick Sopranino schematics](./images/Sopranino2GW_schematics.png "T-Stick Sopranino schematics")
 
+This schematic is outdated. Use for FSR and Piezo Electronics reference only.
 
 ## Instructions:
 
