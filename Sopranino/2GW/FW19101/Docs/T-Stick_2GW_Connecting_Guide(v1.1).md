@@ -36,7 +36,7 @@ careful, the password is never hidden).
 
 ![Save settings](./images/6_save_settings(v1.1).jpg "Save settings")
 
-- Wait at least 5 seconds before click in __how it went__. This will take you to the main setup page.
+- Wait at least 5 seconds before clicking on __how it went__. This will take you to the main setup page.
 
 ![How it went](./images/7_how_it_went(v1.1).jpg "How it went")
 
@@ -68,7 +68,7 @@ You will see the main portal screen through the web browser. Enter “Configurat
 
 ![How it went again](./images/12_how_it_went_again(v1.1).jpg "How it went again")
 
-- Check if the T-Stick is connected and hit __Exit Portal__. The T-Stick will start send information after the portal closes.
+- Check if the T-Stick is connected and hit __Exit Portal__. The T-Stick will start sending information after the portal closes.
 
 ![Exit portal](./images/13_exit_portal(v1.1).jpg "Exit portal")
 

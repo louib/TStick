@@ -126,7 +126,7 @@ Instructions to upload (flash) the T-Stick firmware and configuration files can 
 Read and follow __ALL__ the instructions before uploading it to the board.
 There are some steps to prepare your machine and the ESP32 before flash it for the first time.
 
-It is recommended to use the board test firmwares located at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/19X/Tests to test the capsense board and the IMU after installing them.
+It is recommended to use the board test firmwares located at https://github.com/IDMIL/TStick/tree/master/Sopranino/2GW/FW19101/Tests to test the capsense board and the IMU after installing them.
 
 Nightly builds and beta firmwares can be downloaded at https://github.com/edumeneses/TStick. Before using them, contact the IDMIL's lab team.
 
